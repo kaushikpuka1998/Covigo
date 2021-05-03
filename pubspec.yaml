@@ -32,6 +32,9 @@ dependencies:
   fluttericon: ^2.0.0
   font_awesome_flutter: ^9.0.0
   community_material_icon: ^5.9.55
+  carousel_pro: ^1.0.0
+  carousel_slider: ^3.0.0
+  http: ^0.13.2
 
 dev_dependencies:
   flutter_test:
