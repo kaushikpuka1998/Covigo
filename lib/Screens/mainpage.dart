@@ -1,6 +1,8 @@
 //@dart = 2.9
 
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import '';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -13,6 +15,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 Map<String, dynamic> map = new Map<String, dynamic>();
+Map<String, dynamic> mapnew = new Map<String, dynamic>();
 
 class MainPage extends StatefulWidget {
   @override
@@ -24,6 +27,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     getData();
+    getanotherData();
     super.initState();
   }
 
@@ -43,6 +47,26 @@ class _MainPageState extends State<MainPage> {
     return map;
   }
 
+  getanotherData() async {
+    var url = Uri.parse(
+        'https://api.apify.com/v2/key-value-stores/toDWvRj1JpTXiM8FF/records/LATEST?disableRedirect=true');
+    var res = await http.get(url);
+    //print(res.statusCode);
+    if (res.statusCode == 200) {
+      //print(res.body);
+
+      setState(() {
+        mapnew = new Map<String, dynamic>.from(json.decode(res.body));
+      });
+    }
+    print("CHCCCCCCCCCCCCCCCCCCCCkkkkmapvalue::::::${mapnew["activeCases"]}");
+    return mapnew;
+  }
+
+  TextEditingController districtController = new TextEditingController();
+  TextEditingController stateController = new TextEditingController();
+  String state, district;
+  String var1 = "", var2 = "", var3 = "", var4 = "";
   @override
   Widget build(BuildContext context) {
     print("TAG+++++++++++++++++++++++${map}");
@@ -89,15 +113,97 @@ class _MainPageState extends State<MainPage> {
           ),
           Container(
             child: Container(
+              decoration: BoxDecoration(
+                color: Colors.tealAccent,
+                borderRadius: BorderRadius.circular(2),
+              ),
+              margin: EdgeInsets.all(2),
+              child: TextField(
+                controller: stateController,
+                style: GoogleFonts.mcLaren(color: Colors.blueGrey),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Enter State Name",
+                  hintStyle: GoogleFonts.mcLaren(color: Colors.blue),
+                  suffixIcon: Icon(Icons.search),
+                  contentPadding: EdgeInsets.all(10),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.tealAccent,
+                borderRadius: BorderRadius.circular(2),
+              ),
+              margin: EdgeInsets.all(2),
+              child: TextField(
+                controller: districtController,
+                style: GoogleFonts.mcLaren(color: Colors.blueGrey),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Enter District Name",
+                  hintStyle: GoogleFonts.mcLaren(color: Colors.blue),
+                  suffixIcon: Icon(Icons.search),
+                  contentPadding: EdgeInsets.all(10),
+                ),
+              ),
+            ),
+          ),
+          Container(
+              child: Column(
+            children: [
+              ElevatedButton(
+                child: Text("Check Details"),
+                onPressed: () {
+                  print("TAGGGGGGGGG=>${stateController.text}");
+                  state = stateController.text;
+                  district = districtController.text;
+                  print("TAGAggggggggggggg=>>>>${districtController.text}");
+                  var tmp1 = map['${state}']['districtData']['${district}']
+                      ['confirmed'];
+                  var tmp2 =
+                      map['${state}']['districtData']['${district}']['active'];
+                  var tmp3 = map['${state}']['districtData']['${district}']
+                      ['recovered'];
+
+                  var tmp4 = map['${state}']['districtData']['${district}']
+                      ['deceased'];
+                  var nullcheck =
+                      map['${state}']['districtData']['${district}'];
+
+                  if (nullcheck == null) {
+                    Fluttertoast.showToast(
+                        msg: "State or District Name Problem");
+                  }
+                  print("gggggggggggggggggggggggggg=>${tmp1}");
+                  setState(() {
+                    var1 = tmp1.toString();
+                    var2 = tmp2.toString();
+                    var3 = tmp3.toString();
+                    var4 = tmp4.toString();
+                  });
+
+                  print("TAGGGGGGGGGGGGGGGGGGG=>${var1},${var2}");
+                },
+              ),
+            ],
+          )),
+          Container(
+            child: Container(
               child: Text(
-                "Daily Reports",
+                "Total Reports of ${district == null ? 'India' : district}",
                 style: GoogleFonts.mcLaren(color: Colors.black, fontSize: 24),
                 textAlign: TextAlign.center,
               ),
             ),
           ),
+          SizedBox(
+            height: 20,
+          ),
           Container(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.only(left: 15),
             child: SingleChildScrollView(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -110,7 +216,7 @@ class _MainPageState extends State<MainPage> {
                     color: Colors.red[100],
                     padding: EdgeInsets.all(20),
                     child: Text(
-                      "CONFIRMED\n${map['West Bengal'] == null ? '' : map['West Bengal']['districtData']['Jalpaiguri']['delta']['confirmed']}",
+                      "CONFIRMED\n${map['${state}'] == null ? mapnew["activeCasesNew"].toString() : var1}",
                       style: GoogleFonts.mcLaren(
                           fontWeight: FontWeight.w900, color: Colors.red),
                     ),
@@ -123,9 +229,8 @@ class _MainPageState extends State<MainPage> {
                     width: 160,
                     alignment: Alignment.center,
                     color: Colors.blue[100],
-                    padding: EdgeInsets.all(20),
                     child: Text(
-                      "ACTIVE\n${map['West Bengal'] == null ? '' : map['West Bengal']['districtData']['Jalpaiguri']['active']}",
+                      "ACTIVE\n${map['${state}'] == null ? mapnew["activeCases"].toString() : var2}",
                       style: GoogleFonts.mcLaren(
                           fontWeight: FontWeight.w900, color: Colors.blue),
                     ),
@@ -134,8 +239,11 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
           ),
+          SizedBox(
+            height: 20,
+          ),
           Container(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.only(left: 15, bottom: 20),
             child: SingleChildScrollView(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -148,7 +256,7 @@ class _MainPageState extends State<MainPage> {
                     color: Colors.green[100],
                     padding: EdgeInsets.all(20),
                     child: Text(
-                      "RECOVERED\n${map['West Bengal'] == null ? '' : map['West Bengal']['districtData']['Jalpaiguri']['delta']['recovered']}",
+                      "RECOVERED\n${map['${state}'] == null ? mapnew["recovered"].toString() : var3}",
                       style: GoogleFonts.mcLaren(
                           fontWeight: FontWeight.w900, color: Colors.green),
                     ),
@@ -161,9 +269,8 @@ class _MainPageState extends State<MainPage> {
                     width: 160,
                     alignment: Alignment.center,
                     color: Colors.blueGrey[100],
-                    padding: EdgeInsets.all(20),
                     child: Text(
-                      "DEATH\n${map['West Bengal'] == null ? '' : map['West Bengal']['districtData']['Jalpaiguri']['delta']['deceased']}",
+                      "DEATH\n${map['${state}'] == null ? mapnew["deaths"].toString() : var4}",
                       style: GoogleFonts.mcLaren(
                           fontWeight: FontWeight.w900, color: Colors.blueGrey),
                     ),
