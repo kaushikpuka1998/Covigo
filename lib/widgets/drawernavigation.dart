@@ -1,10 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
-import 'package:covigo/Screens/bedscreen.dart';
-import 'package:covigo/Screens/oxygenscreen.dart';
-import 'package:covigo/Screens/vaccinescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:fluttericon/typicons_icons.dart';
 
 class DrawerNavigation extends StatefulWidget {
   @override
