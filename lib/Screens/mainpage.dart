@@ -161,6 +161,10 @@ class _MainPageState extends State<MainPage> {
                 print("TAGGGGGGGGG=>${stateController.text}");
                 state = stateController.text;
                 district = districtController.text;
+
+                if (state == "" && district == "") {
+                  getanotherData();
+                }
                 print("TAGAggggggggggggg=>>>>${districtController.text}");
                 var tmp1 =
                     map['${state}']['districtData']['${district}']['confirmed'];
@@ -202,7 +206,7 @@ class _MainPageState extends State<MainPage> {
         Container(
           child: Container(
             child: Text(
-              "Total Reports of ${district == null ? 'India' : district}",
+              "Total Reports of ${district == "" ? 'India' : district}",
               style: GoogleFonts.mcLaren(color: Colors.black, fontSize: 24),
               textAlign: TextAlign.center,
             ),
@@ -335,7 +339,7 @@ class _MainPageState extends State<MainPage> {
         Container(
           padding: EdgeInsets.all(15),
           child: Text(
-            "Daily updates of ${tmpvar1 == "" ? 'India' : district}",
+            "Daily updates of ${district == "" ? 'India' : district}",
             style: GoogleFonts.mcLaren(fontSize: 16),
           ),
         ),
@@ -354,7 +358,7 @@ class _MainPageState extends State<MainPage> {
                     style: GoogleFonts.mcLaren(color: Colors.white),
                   ),
                   trailing: Text(
-                      "${tmpvar1 == "" ? mapnew["activeCasesNew"] : tmpvar1}"),
+                      "${district == "" ? mapnew["activeCasesNew"] : tmpvar1}"),
                 ),
               ),
               Container(
@@ -368,7 +372,7 @@ class _MainPageState extends State<MainPage> {
                     style: GoogleFonts.mcLaren(color: Colors.white),
                   ),
                   trailing: Text(
-                      "${tmpvar3 == "" ? mapnew["recoveredNew"].toString() : tmpvar3}"),
+                      "${district == "" ? mapnew["recoveredNew"].toString() : tmpvar3}"),
                 ),
               ),
               Container(
@@ -382,7 +386,7 @@ class _MainPageState extends State<MainPage> {
                     style: GoogleFonts.mcLaren(color: Colors.white),
                   ),
                   trailing: Text(
-                      "${tmpvar2 == "" ? mapnew["deathsNew"].toString() : tmpvar2}"),
+                      "${district == "" ? mapnew["deathsNew"].toString() : tmpvar2}"),
                 ),
               ),
               Text(
