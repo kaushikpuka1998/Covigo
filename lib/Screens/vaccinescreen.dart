@@ -4,13 +4,11 @@ import 'dart:convert';
 
 import 'package:covigo/Model/responsive.dart';
 import 'package:covigo/Model/vaccine.dart';
-import 'package:covigo/widgets/drawernavigation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:covigo/Model/vaccine.dart';
-import 'mainpage.dart';
 
 Map<String, dynamic> mapvaccine = new Map<String, dynamic>();
 List lastvalue = [];
@@ -32,6 +30,8 @@ class _VaccinescreenState extends State<Vaccinescreen> {
 
   getData() async {
     lastvalue.clear();
+    mapvaccine.clear();
+
     var url = Uri.parse(
         'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${pincodeController.text}&date=${datecontroller.text}');
     var res = await http.get(url);
@@ -45,7 +45,8 @@ class _VaccinescreenState extends State<Vaccinescreen> {
     }
     print(mapvaccine);
     List abc = mapvaccine["centers"];
-    //print("TTTTTTTTTTTTTTTTTTTTTTTTTT${abc}");
+    print("TTTTTTTTTTTTTTTTTTTTTTTTTT${abc.length}");
+
     //print(abc[1]);
     if (abc != null) {
       for (int i = 0; i < abc.length; i++) {
@@ -113,7 +114,7 @@ class _VaccinescreenState extends State<Vaccinescreen> {
                 ),
               )
             : ((lastvalue.length == 0)
-                ? _searchbar()
+                ? Center(child: _searchbar())
                 : Container(
                     child: ListView.builder(
                       itemBuilder: (context, index) {
@@ -126,69 +127,149 @@ class _VaccinescreenState extends State<Vaccinescreen> {
 
   _searchbar() {
     return Container(
-        child: Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          width: 1,
-          color: Colors.green,
-          style: BorderStyle.solid,
-        ),
-      ),
-      margin: EdgeInsets.all(2),
-      child: Column(
-        children: [
-          Title(
-              color: Colors.blue,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Search Vaccination Center Details by Pincode of your Area and Desired Date",
-                  style: GoogleFonts.openSans(
-                      fontSize: 10, fontWeight: FontWeight.w400),
+        child: Wrap(
+      children: <Widget>[
+        Container(
+          width: Responsive.width(100, context),
+          height: Responsive.width(60, context),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              width: 1,
+              color: Colors.green,
+              style: BorderStyle.solid,
+            ),
+          ),
+          margin: EdgeInsets.all(2),
+          child: Column(
+            children: [
+              Title(
+                  color: Colors.blue,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Search Vaccination Center Details by Pincode of your Area and Desired Date",
+                      style: GoogleFonts.openSans(
+                          fontSize: 10, fontWeight: FontWeight.w400),
+                    ),
+                  )),
+              Container(
+                color: Colors.green,
+                child: TextField(
+                  controller: pincodeController,
+                  style: GoogleFonts.mcLaren(color: Colors.white),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Enter Pincode",
+                    hintStyle:
+                        GoogleFonts.mcLaren(color: Colors.white, fontSize: 12),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                    contentPadding: EdgeInsets.all(10),
+                  ),
                 ),
-              )),
-          TextField(
-            controller: pincodeController,
-            style: GoogleFonts.mcLaren(color: Colors.blueGrey),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: "Enter Pincode",
-              hintStyle: GoogleFonts.mcLaren(color: Colors.blue, fontSize: 12),
-              suffixIcon: Icon(Icons.search),
-              contentPadding: EdgeInsets.all(10),
-            ),
+                margin: EdgeInsets.only(bottom: 2),
+              ),
+              Container(
+                color: Colors.green,
+                child: TextField(
+                  cursorColor: Colors.green,
+                  decoration: InputDecoration(
+                      hintText: "Select Date",
+                      hintStyle: GoogleFonts.mcLaren(color: Colors.white),
+                      icon: Icon(
+                        Icons.date_range_outlined,
+                        color: Colors.white,
+                      ),
+                      fillColor: Colors.white),
+                  controller: datecontroller,
+                  onTap: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2021),
+                      lastDate: DateTime(2030),
+                    ).then((pickedDate) {
+                      datecontroller.text = pickedDate == null
+                          ? DateFormat('dd-MM-yyyy')
+                              .format(DateTime.now())
+                              .toString()
+                          : DateFormat('dd-MM-yyyy')
+                              .format(pickedDate)
+                              .toString();
+                    });
+                  },
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    if (pincodeController.text == "") {
+                      return showCupertinoDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: new Text(
+                                  "Alert",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                content: new Text("Pincode is Missing"),
+                                actions: <Widget>[
+                                  CupertinoDialogAction(
+                                    child: Text("Close"),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(false),
+                                  ),
+                                ],
+                              ));
+                    } else if (datecontroller.text == "") {
+                      return showCupertinoDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: new Text(
+                                  "Dialog Title",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                content: new Text("Date is Missing"),
+                                actions: <Widget>[
+                                  CupertinoDialogAction(
+                                    isDefaultAction: true,
+                                    child: Text("Close"),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(false),
+                                  ),
+                                ],
+                              ));
+                    } else if (pincodeController.text == "" &&
+                        datecontroller.text != "") {
+                      return showCupertinoDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: new Text(
+                                  "Alert",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                content: new Text("Pincode is Missing"),
+                                actions: <Widget>[
+                                  CupertinoDialogAction(
+                                    child: Text("Close"),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(false),
+                                  ),
+                                ],
+                              ));
+                    } else {
+                      getData();
+                      datecontroller.clear();
+                      pincodeController.clear();
+                    }
+                  },
+                  child: Text("Press to get Information"))
+            ],
           ),
-          TextField(
-            cursorColor: Colors.green,
-            decoration: InputDecoration(
-              hintText: "Select Date",
-              icon: Icon(Icons.date_range_outlined),
-            ),
-            controller: datecontroller,
-            onTap: () {
-              showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2021),
-                lastDate: DateTime(2030),
-              ).then((pickedDate) {
-                datecontroller.text = pickedDate == null
-                    ? DateFormat('dd-MM-yyyy').format(DateTime.now()).toString()
-                    : DateFormat('dd-MM-yyyy').format(pickedDate).toString();
-              });
-            },
-          ),
-          ElevatedButton(
-              onPressed: () {
-                getData();
-                datecontroller.clear();
-                pincodeController.clear();
-              },
-              child: Text("Press to get Information"))
-        ],
-      ),
+        ),
+      ],
     ));
   }
 
@@ -207,7 +288,7 @@ class _VaccinescreenState extends State<Vaccinescreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              color: Colors.cyanAccent,
+              color: Colors.black54,
               elevation: 5,
               child: Wrap(
                 direction: Axis.horizontal,
