@@ -38,6 +38,7 @@ dependencies:
   fluttertoast: ^8.0.6
   intl: ^0.17.0
   webview_flutter: ^2.0.4
+  connectivity: ^3.0.3
 
 dev_dependencies:
   flutter_test:
@@ -48,16 +49,21 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  assets:
+    - images/mask.jpg
+    - images/sani.jpg
+    - images/social.jpg
+    - images/load1.gif
+    - images/load.gif
+    - images/load2.gif
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
+
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
