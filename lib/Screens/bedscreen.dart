@@ -1,6 +1,7 @@
 import 'package:covigo/widgets/drawernavigation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class BedScreen extends StatefulWidget {
   @override
@@ -20,9 +21,11 @@ class _BedScreenState extends State<BedScreen> {
         ),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          "Bed Page",
+      body: Container(
+        child: WebView(
+          initialUrl:
+              "https://excise.wb.gov.in/CHMS/Public/Page/CHMS_Public_Hospital_Bed_Availability.aspx",
+          javascriptMode: JavascriptMode.unrestricted,
         ),
       ),
     );

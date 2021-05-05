@@ -203,78 +203,83 @@ class _MainPageState extends State<MainPage> {
             height: 20,
           ),
           Container(
-            padding: EdgeInsets.only(left: 15),
+            padding: EdgeInsets.all(15),
             child: SingleChildScrollView(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    height: 120,
-                    width: 160,
-                    alignment: Alignment.center,
-                    color: Colors.red[100],
-                    padding: EdgeInsets.all(20),
-                    child: Text(
-                      "CONFIRMED\n${map['${state}'] == null ? mapnew["activeCasesNew"].toString() : var1}",
-                      style: GoogleFonts.mcLaren(
-                          fontWeight: FontWeight.w900, color: Colors.red),
+                  Expanded(
+                    child: Container(
+                      height: 120,
+                      width: 160,
+                      alignment: Alignment.center,
+                      color: Colors.red[100],
+                      padding: EdgeInsets.all(20),
+                      child: Text(
+                        "CONFIRMED\n${map['${state}'] == null ? mapnew["activeCasesNew"].toString() : var1}",
+                        style: GoogleFonts.mcLaren(
+                            fontWeight: FontWeight.w900, color: Colors.red),
+                      ),
+                      margin: EdgeInsets.only(right: 10),
                     ),
                   ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Container(
-                    height: 120,
-                    width: 160,
-                    alignment: Alignment.center,
-                    color: Colors.blue[100],
-                    child: Text(
-                      "ACTIVE\n${map['${state}'] == null ? mapnew["activeCases"].toString() : var2}",
-                      style: GoogleFonts.mcLaren(
-                          fontWeight: FontWeight.w900, color: Colors.blue),
+                  Expanded(
+                    child: Container(
+                      height: 120,
+                      width: 160,
+                      alignment: Alignment.center,
+                      color: Colors.blue[100],
+                      child: Text(
+                        "ACTIVE\n${map['${state}'] == null ? mapnew["activeCases"].toString() : var2}",
+                        style: GoogleFonts.mcLaren(
+                            fontWeight: FontWeight.w900, color: Colors.blue),
+                      ),
+                      margin: EdgeInsets.only(left: 10),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
           Container(
-            padding: EdgeInsets.only(left: 15, bottom: 20),
+            padding: EdgeInsets.all(15),
             child: SingleChildScrollView(
-              child: Row(
+              child: Flex(
+                direction: Axis.horizontal,
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    height: 120,
-                    width: 160,
-                    alignment: Alignment.center,
-                    color: Colors.green[100],
-                    padding: EdgeInsets.all(20),
-                    child: Text(
-                      "RECOVERED\n${map['${state}'] == null ? mapnew["recovered"].toString() : var3}",
-                      style: GoogleFonts.mcLaren(
-                          fontWeight: FontWeight.w900, color: Colors.green),
+                  Expanded(
+                    child: Container(
+                      height: 120,
+                      width: 160,
+                      alignment: Alignment.center,
+                      color: Colors.green[100],
+                      padding: EdgeInsets.all(20),
+                      child: Text(
+                        "RECOVERED\n${map['${state}'] == null ? mapnew["recovered"].toString() : var3}",
+                        style: GoogleFonts.mcLaren(
+                            fontWeight: FontWeight.w900, color: Colors.green),
+                      ),
+                      margin: EdgeInsets.only(right: 10),
                     ),
                   ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Container(
-                    height: 120,
-                    width: 160,
-                    alignment: Alignment.center,
-                    color: Colors.blueGrey[100],
-                    child: Text(
-                      "DEATH\n${map['${state}'] == null ? mapnew["deaths"].toString() : var4}",
-                      style: GoogleFonts.mcLaren(
-                          fontWeight: FontWeight.w900, color: Colors.blueGrey),
+                  Expanded(
+                    child: Container(
+                      height: 120,
+                      width: 160,
+                      alignment: Alignment.center,
+                      color: Colors.blueGrey[100],
+                      child: Text(
+                        "DEATH\n${map['${state}'] == null ? mapnew["deaths"].toString() : var4}",
+                        style: GoogleFonts.mcLaren(
+                            fontWeight: FontWeight.w900,
+                            color: Colors.blueGrey),
+                      ),
+                      margin: EdgeInsets.only(left: 10),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
