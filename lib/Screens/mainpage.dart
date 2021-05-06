@@ -437,10 +437,10 @@ class _MainPageState extends State<MainPage> {
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
-                              colors: [Colors.green, Colors.white])),
+                              colors: [Colors.red, Colors.white])),
                       child: ListTile(
                         title: Text(
-                          "Recovered",
+                          "Death",
                           style: GoogleFonts.mcLaren(color: Colors.white),
                         ),
                         trailing: Text(
@@ -451,10 +451,10 @@ class _MainPageState extends State<MainPage> {
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
-                              colors: [Colors.red, Colors.white])),
+                              colors: [Colors.green, Colors.white])),
                       child: ListTile(
                         title: Text(
-                          "Death",
+                          "Recovered",
                           style: GoogleFonts.mcLaren(color: Colors.white),
                         ),
                         trailing: Text(

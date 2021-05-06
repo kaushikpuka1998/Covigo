@@ -1,17 +1,25 @@
 //@dart =2.9
 
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:covigo/Model/responsive.dart';
 import 'package:covigo/Model/vaccine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
+import 'mainpage.dart';
+
 Map<String, dynamic> mapvaccine = new Map<String, dynamic>();
 List lastvalue = [];
+
+var check = false;
 
 class Vaccinescreen extends StatefulWidget {
   @override
@@ -21,29 +29,63 @@ class Vaccinescreen extends StatefulWidget {
 class _VaccinescreenState extends State<Vaccinescreen> {
   TextEditingController pincodeController = new TextEditingController();
   TextEditingController datecontroller = new TextEditingController();
+  onWillPop(context) async {
+    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    return false;
+  }
 
   @override
   void initState() {
     getData();
+
     super.initState();
+  }
+
+  Checkstatus() {
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult res) {
+      if (res == ConnectivityResult.wifi || res == ConnectivityResult.mobile) {
+        Fluttertoast.showToast(msg: "Internet Connected");
+        check = true;
+      } else {
+        check = false;
+        return showCupertinoDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: new Text(
+                    "Information",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  content: new Text("Internet Connectivity Lost"),
+                  actions: <Widget>[
+                    CupertinoDialogAction(
+                      isDefaultAction: true,
+                      child: Text("Close"),
+                      onPressed: () => onWillPop(context),
+                    ),
+                  ],
+                ));
+      }
+    });
   }
 
   getData() async {
     lastvalue.clear();
     mapvaccine.clear();
-
+    print("${pincodeController.text}+${datecontroller.text}");
     var url = Uri.parse(
-        'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${pincodeController.text}&date=${datecontroller.text}');
+      'https://www.cowin.gov.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${pincodeController.text}&date=${datecontroller.text}',
+    );
     var res = await http.get(url);
-    //print(res.statusCode);
+    print("HELLLLLLLLLLLLLo${res.statusCode}");
+
     if (res.statusCode == 200) {
-      //print(res.body);
+      print(res.body);
 
       setState(() {
         mapvaccine = new Map<String, dynamic>.from(json.decode(res.body));
       });
     }
-    print(mapvaccine);
+    print("VVVVVVVVVVVVVVVVVVVVVVVVVVVV${mapvaccine}");
     List abc = mapvaccine["centers"];
     print("TTTTTTTTTTTTTTTTTTTTTTTTTT${abc.length}");
 
@@ -94,6 +136,8 @@ class _VaccinescreenState extends State<Vaccinescreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("GTETTTTTTTTTTTTTTTTTTTTTTTTTTTT${lastvalue.length}");
+    Checkstatus();
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
@@ -104,25 +148,16 @@ class _VaccinescreenState extends State<Vaccinescreen> {
           ),
           centerTitle: true,
         ),
-        body: (mapvaccine == null)
-            ? Center(
-                child: Center(
-                  child: Text(
-                    "Server Error",
-                    style: GoogleFonts.mcLaren(fontSize: 25, color: Colors.red),
-                  ),
+        body: ((lastvalue.length == 0)
+            ? Center(child: _searchbar())
+            : Container(
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return _listItem(index);
+                  },
+                  itemCount: lastvalue.length,
                 ),
-              )
-            : ((lastvalue.length == 0)
-                ? Center(child: _searchbar())
-                : Container(
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return (index == 0) ? _searchbar() : _listItem(index);
-                      },
-                      itemCount: lastvalue.length,
-                    ),
-                  )));
+              )));
   }
 
   _searchbar() {
@@ -261,6 +296,8 @@ class _VaccinescreenState extends State<Vaccinescreen> {
                               ));
                     } else {
                       getData();
+                      print(
+                          "hhhhhhgurighitjgiiiiiiiiiiiiiiotitjgbiojjjjjjjjjjjjjjjjjjjg");
                       datecontroller.clear();
                       pincodeController.clear();
                     }
@@ -315,7 +352,8 @@ class _VaccinescreenState extends State<Vaccinescreen> {
                         softWrap: true),
                   ),
                   ListTile(
-                    title: Text("Address:${lastvalue[index].address}",
+                    title: Text(
+                        "Name:${lastvalue[index].name},${lastvalue[index].address}",
                         textAlign: TextAlign.left,
                         style: GoogleFonts.mcLaren(
                           fontWeight: FontWeight.bold,
