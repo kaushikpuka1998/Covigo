@@ -385,24 +385,28 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(right: 5),
-                      child: Image.network(
-                        check == true
-                            ? "https://media.istockphoto.com/vectors/handwashing-illustration-vector-id1133178162?k=6&m=1133178162&s=612x612&w=0&h=Imb_K0MTXOpLs4lEMeG_B5sO2RK6exiYERZOI3ilmD0="
-                            : "",
-                        height: 120,
-                        width: 120,
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(right: 5),
+                        child: Image.network(
+                          check == true
+                              ? "https://media.istockphoto.com/vectors/handwashing-illustration-vector-id1133178162?k=6&m=1133178162&s=612x612&w=0&h=Imb_K0MTXOpLs4lEMeG_B5sO2RK6exiYERZOI3ilmD0="
+                              : "",
+                          height: 120,
+                          width: 120,
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: Image.network(
-                        check == true
-                            ? "https://media.istockphoto.com/vectors/social-distancing-keep-the-1-meter-distance-in-public-to-protect-from-vector-id1213888133"
-                            : "",
-                        height: 120,
-                        width: 120,
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(right: 5),
+                        child: Image.network(
+                          check == true
+                              ? "https://media.istockphoto.com/vectors/social-distancing-keep-the-1-meter-distance-in-public-to-protect-from-vector-id1213888133"
+                              : "",
+                          height: 120,
+                          width: 120,
+                        ),
                       ),
                     ),
                   ],
