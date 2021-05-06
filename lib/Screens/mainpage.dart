@@ -411,7 +411,7 @@ class _MainPageState extends State<MainPage> {
               Container(
                 padding: EdgeInsets.all(15),
                 child: Text(
-                  "Daily updates of ${district == null || tmpvar1 == "" ? 'India' : district}",
+                  "Daily updates of ${district == "" || tmpvar1 == "" ? 'India' : district}",
                   style: GoogleFonts.mcLaren(fontSize: 16),
                 ),
               ),
