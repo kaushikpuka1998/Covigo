@@ -4,20 +4,21 @@ import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:covigo/widgets/drawernavigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pie_chart/pie_chart.dart';
 import 'package:http/http.dart' as http;
 
 Map<String, dynamic> map = new Map<String, dynamic>();
 Map<String, dynamic> mapnew = new Map<String, dynamic>();
+Map<String, dynamic> dose = new Map<String, dynamic>();
+int ln;
 bool check = false;
 
 class MainPage extends StatefulWidget {
@@ -32,6 +33,7 @@ class _MainPageState extends State<MainPage> {
     getData();
     getanotherData();
     Checkstatus();
+    getDose();
     super.initState();
   }
 
@@ -69,6 +71,22 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  getDose() async {
+    var url = Uri.parse('https://api.covid19india.org/data.json');
+    var res = await http.get(url);
+    //print(res.statusCode);
+    if (res.statusCode == 200) {
+      //print(res.body);
+
+      setState(() {
+        dose = new Map<String, dynamic>.from(json.decode(res.body));
+      });
+      ln = dose["tested"].length;
+      /*print(
+          "CHCKKKKKKKKKKKKKKKKKKKKKIIIIIINNNNG${dose["tested"][ln - 1]["dailyrtpcrsamplescollectedicmrapplication"]}");*/
+    }
+  }
+
   getData() async {
     var url =
         Uri.parse('https://api.covid19india.org/state_district_wise.json');
@@ -97,7 +115,7 @@ class _MainPageState extends State<MainPage> {
         mapnew = new Map<String, dynamic>.from(json.decode(res.body));
       });
     }
-    print("CHCCCCCCCCCCCCCCCCCCCCkkkkmapvalue::::::${mapnew["activeCases"]}");
+    //print("CHCCCCCCCCCCCCCCCCCCCCkkkkmapvalue::::::${mapnew["activeCases"]}");
     return mapnew;
   }
 
@@ -468,6 +486,173 @@ class _MainPageState extends State<MainPage> {
                     Text(
                       "(*) Zero Means System Upgrade for Delta Change",
                       style: TextStyle(color: Colors.grey),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(15),
+                      child: new Align(
+                          alignment: Alignment.centerLeft,
+                          child: new Text(
+                            "Vaccination Daily Report of India",
+                            style: GoogleFonts.mcLaren(fontSize: 16),
+                          )),
+                    ),
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 4, bottom: 20),
+                              child: Neumorphic(
+                                child: Container(
+                                  height: 120,
+                                  width: 120,
+                                  alignment: Alignment(0, 0),
+                                  decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: Colors.red, width: 1),
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(20)),
+                                  ),
+                                  child: Text(
+                                    "Age\n45-60\n1st Dose:\n${ln == null ? 0.0 : dose["tested"][ln - 1]["over45years1stdose"]}",
+                                    style:
+                                        GoogleFonts.mcLaren(color: Colors.red),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 4, bottom: 20),
+                              child: Neumorphic(
+                                child: Container(
+                                  height: 120,
+                                  width: 120,
+                                  alignment: Alignment(0, 0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.blue, width: 1),
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(20)),
+                                  ),
+                                  child: Text(
+                                    "Age\n45 - 60\n2nd Dose:\n${ln == null ? 0 : dose["tested"][ln - 1]["over45years2nddose"]}",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        GoogleFonts.mcLaren(color: Colors.blue),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 4, bottom: 20),
+                              child: Neumorphic(
+                                child: Container(
+                                  height: 120,
+                                  width: 120,
+                                  alignment: Alignment(0, 0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.purple, width: 1),
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(20)),
+                                  ),
+                                  child: Text(
+                                    "Age\nAfter 60\n1st Dose:\n${ln == null ? 0 : dose["tested"][ln - 1]["over60years1stdose"]}",
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.mcLaren(
+                                        color: Colors.purple),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: 4, bottom: 20, right: 4),
+                              child: Neumorphic(
+                                child: Container(
+                                  height: 120,
+                                  width: 120,
+                                  alignment: Alignment(0, 0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.green, width: 1),
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(20)),
+                                  ),
+                                  child: Text(
+                                    "Age\nAfter 60\n2nd Dose:\n${ln == null ? 0 : dose["tested"][ln - 1]["over60years2nddose"]}",
+                                    style: GoogleFonts.mcLaren(
+                                        color: Colors.green),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            child: PieChart(
+                              dataMap: {
+                                "Front Line Worker 1st Dose": double.parse(ln ==
+                                        null
+                                    ? "0.0"
+                                    : dose["tested"][ln - 1]
+                                        ["frontlineworkersvaccinated1stdose"]),
+                                "Front Line Worker 2nd Dose": double.parse(ln ==
+                                        null
+                                    ? "0.0"
+                                    : dose["tested"][ln - 1]
+                                        ["frontlineworkersvaccinated2nddose"]),
+                                "Health Worker 1st Dose": double.parse(ln ==
+                                        null
+                                    ? "0.0"
+                                    : dose["tested"][ln - 1]
+                                        ["healthcareworkersvaccinated1stdose"]),
+                                "Health Worker 2nd Dose": double.parse(ln ==
+                                        null
+                                    ? "0.0"
+                                    : dose["tested"][ln - 1]
+                                        ["healthcareworkersvaccinated2nddose"]),
+                                "Age 45-60 1st Dose": double.parse(ln == null
+                                    ? "0.0"
+                                    : dose["tested"][ln - 1]
+                                        ["over45years1stdose"]),
+                                "Age 45-60 2nd Dose": double.parse(ln == null
+                                    ? "0.0"
+                                    : dose["tested"][ln - 1]
+                                        ["over45years2nddose"]),
+                                "Age 60 Above 1st Dose": double.parse(ln == null
+                                    ? "0.0"
+                                    : dose["tested"][ln - 1]
+                                        ["over60years1stdose"]),
+                                "Age 60 Above 2nd Dose": double.parse(ln == null
+                                    ? "0.0"
+                                    : dose["tested"][ln - 1]
+                                        ["over60years2nddose"])
+                              },
+                              chartValuesOptions: ChartValuesOptions(
+                                  chartValueStyle: TextStyle(
+                                      fontSize: 8, color: Colors.black),
+                                  showChartValueBackground: false,
+                                  showChartValuesInPercentage: true),
+                            ),
+                          ),
+                          Text(
+                              "Updated On ${ln == null ? "0.0" : dose["tested"][ln - 1]["updatetimestamp"]}")
+                        ],
+                      ),
                     )
                   ],
                 ),
