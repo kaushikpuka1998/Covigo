@@ -142,9 +142,9 @@ class _VaccinescreenState extends State<Vaccinescreen> {
         appBar: AppBar(
           backgroundColor: Colors.green,
           title: Text(
-            "Covigo",
-            style: GoogleFonts.sacramento(
-                fontSize: 35, fontWeight: FontWeight.w800),
+            "Vaccine Details",
+            style:
+                GoogleFonts.mcLaren(fontSize: 15, fontWeight: FontWeight.w800),
           ),
           centerTitle: true,
         ),

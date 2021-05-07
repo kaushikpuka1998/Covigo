@@ -83,7 +83,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
               onTap: () {
                 Navigator.pushNamed(context, 'contactpage');
               },
-              title: Text('Contact'),
+              title: Text('Doctors'),
               leading: Icon(
                 CommunityMaterialIcons.contacts,
                 color: Colors.deepOrange,

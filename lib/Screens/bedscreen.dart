@@ -15,9 +15,8 @@ class _BedScreenState extends State<BedScreen> {
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: Text(
-          "Covigo",
-          style:
-              GoogleFonts.sacramento(fontSize: 35, fontWeight: FontWeight.w800),
+          "Bed Availability",
+          style: GoogleFonts.mcLaren(fontSize: 15, fontWeight: FontWeight.w800),
         ),
         centerTitle: true,
       ),
