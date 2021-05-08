@@ -45,6 +45,7 @@ class _OxygenScreenState extends State<OxygenScreen> {
     getOxygen();
     getOxygen().then((value) {
       setState(() {
+        _oxydata.clear();
         _oxydata.addAll(value);
         _searchedoxydata = _oxydata;
       });

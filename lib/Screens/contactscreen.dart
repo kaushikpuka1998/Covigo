@@ -36,6 +36,7 @@ class _ContactScreenState extends State<ContactScreen> {
     getContact();
     getContact().then((value) {
       setState(() {
+        _docdata.clear();
         _docdata.addAll(value);
         _searcheddocdata = _docdata;
       });
@@ -74,17 +75,20 @@ class _ContactScreenState extends State<ContactScreen> {
   _searchbar() {
     return Padding(
       padding: EdgeInsets.all(10),
-      child: TextField(
-        decoration: InputDecoration(hintText: "Search by District"),
-        onChanged: (text) {
-          text = text.toLowerCase();
-          setState(() {
-            _searcheddocdata = _docdata.where((doceach) {
-              var docdistrict = doceach.region.toLowerCase();
-              return docdistrict.contains(text);
-            }).toList();
-          });
-        },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextField(
+          decoration: InputDecoration(hintText: "Search by District"),
+          onChanged: (text) {
+            text = text.toLowerCase();
+            setState(() {
+              _searcheddocdata = _docdata.where((doceach) {
+                var docdistrict = doceach.region.toLowerCase();
+                return docdistrict.contains(text);
+              }).toList();
+            });
+          },
+        ),
       ),
     );
   }
