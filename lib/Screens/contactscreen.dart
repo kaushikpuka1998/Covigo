@@ -14,18 +14,33 @@ class ContactScreen extends StatefulWidget {
 }
 
 class _ContactScreenState extends State<ContactScreen> {
+  List<Doctor> _docdata = new List();
+  List<Doctor> _searcheddocdata = new List();
   Future<List<Doctor>> getContact() async {
     var res = await http.get(
       Uri.parse("http://192.168.0.104/doctor_details/conection.php"),
     );
     print(res.body);
+
+    if (res.statusCode == 200) {
+      var notesJson = json.decode(res.body);
+      for (var notejson in notesJson) {
+        _docdata.add(Doctor.fromMap(notejson));
+      }
+    }
     return DoctorFromMap(res.body);
   }
 
   @override
   void initState() {
-    super.initState();
     getContact();
+    getContact().then((value) {
+      setState(() {
+        _docdata.addAll(value);
+        _searcheddocdata = _docdata;
+      });
+    });
+    super.initState();
   }
 
   Future<void> customLaunch(String s) async {
@@ -48,56 +63,65 @@ class _ContactScreenState extends State<ContactScreen> {
           ),
           centerTitle: true,
         ),
-        body: Center(
-            child: FutureBuilder(
-                future: getContact(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (BuildContext context, index) {
-                          Doctor doc = snapshot.data[index];
-                          return Card(
-                            child: Column(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: Colors.deepOrange),
-                                      shape: BoxShape.rectangle,
-                                      gradient: LinearGradient(colors: [
-                                        Colors.deepOrange,
-                                        Colors.white
-                                      ]),
-                                      borderRadius: BorderRadius.circular(15)),
-                                  padding: EdgeInsets.all(15),
-                                  child: ListTile(
-                                    onTap: () {
-                                      String val = "tel:" + doc.phone;
-                                      customLaunch(val);
-                                    },
-                                    title: Text(
-                                      "👨‍⚕️ ${doc.name}",
-                                      style: GoogleFonts.mcLaren(
-                                          fontSize: 18, color: Colors.white),
-                                    ),
-                                    subtitle: Text(
-                                      "📞  Phone:${doc.phone}\n🌐  Region:${doc.region}",
-                                      style: GoogleFonts.mcLaren(
-                                          fontSize: 14, color: Colors.white),
-                                    ),
-                                    trailing: Icon(
-                                      Icons.phone_forwarded,
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        });
-                  }
-                  return CircularProgressIndicator();
-                })));
+        body: ListView.builder(
+          itemBuilder: (context, index) {
+            return index == 0 ? _searchbar() : _listitem(index - 1);
+          },
+          itemCount: _searcheddocdata.length + 1,
+        ));
+  }
+
+  _searchbar() {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: TextField(
+        decoration: InputDecoration(hintText: "Search by District"),
+        onChanged: (text) {
+          text = text.toLowerCase();
+          setState(() {
+            _searcheddocdata = _docdata.where((doceach) {
+              var docdistrict = doceach.region.toLowerCase();
+              return docdistrict.contains(text);
+            }).toList();
+          });
+        },
+      ),
+    );
+  }
+
+  _listitem(index) {
+    return Card(
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.deepOrange),
+                shape: BoxShape.rectangle,
+                gradient:
+                    LinearGradient(colors: [Colors.deepOrange, Colors.white]),
+                borderRadius: BorderRadius.circular(15)),
+            padding: EdgeInsets.all(15),
+            child: ListTile(
+              onTap: () {
+                String val = "tel:" + _searcheddocdata[index].phone;
+                customLaunch(val);
+              },
+              title: Text(
+                "👨‍⚕️ ${_searcheddocdata[index].name}",
+                style: GoogleFonts.mcLaren(fontSize: 18, color: Colors.white),
+              ),
+              subtitle: Text(
+                "📞  Phone:${_searcheddocdata[index].phone}\n🌐  Region:${_searcheddocdata[index].region}",
+                style: GoogleFonts.mcLaren(fontSize: 14, color: Colors.white),
+              ),
+              trailing: Icon(
+                Icons.phone_forwarded,
+                color: Colors.green,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

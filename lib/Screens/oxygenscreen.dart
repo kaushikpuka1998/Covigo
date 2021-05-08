@@ -15,11 +15,20 @@ class OxygenScreen extends StatefulWidget {
 }
 
 class _OxygenScreenState extends State<OxygenScreen> {
+  List<Oxygen> _oxydata = List<Oxygen>();
+  List<Oxygen> _searchedoxydata = List<Oxygen>();
   Future<List<Oxygen>> getOxygen() async {
     var res = await http.get(
       Uri.parse("http://192.168.0.104/doctor_details/oxy_details.php"),
     );
     print(res.body);
+
+    if (res.statusCode == 200) {
+      var notesJson = json.decode(res.body);
+      for (var notejson in notesJson) {
+        _oxydata.add(Oxygen.fromMap(notejson));
+      }
+    }
     return OxygenFromMap(res.body);
   }
 
@@ -34,6 +43,12 @@ class _OxygenScreenState extends State<OxygenScreen> {
   @override
   void initState() {
     getOxygen();
+    getOxygen().then((value) {
+      setState(() {
+        _oxydata.addAll(value);
+        _searchedoxydata = _oxydata;
+      });
+    });
     super.initState();
   }
 
@@ -41,6 +56,7 @@ class _OxygenScreenState extends State<OxygenScreen> {
     await Future.delayed(Duration(seconds: 1));
     setState(() {
       getOxygen();
+      _searchedoxydata = _oxydata;
     });
   }
 
@@ -55,59 +71,69 @@ class _OxygenScreenState extends State<OxygenScreen> {
         ),
         centerTitle: true,
       ),
-      body: RefreshIndicator(
-        child: Center(
-            child: Container(
-          child: FutureBuilder(
-            future: getOxygen(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext context, index) {
-                      Oxygen oxy = snapshot.data[index];
-                      return Card(
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.purple),
-                                  shape: BoxShape.rectangle,
-                                  gradient: LinearGradient(
-                                      colors: [Colors.purple, Colors.white]),
-                                  borderRadius: BorderRadius.circular(15)),
-                              padding: EdgeInsets.all(15),
-                              child: ListTile(
-                                onTap: () {
-                                  String val = "tel:" + oxy.phone;
-                                  customLaunch(val);
-                                },
-                                title: Text(
-                                  "🌐 ${oxy.place}",
-                                  style: GoogleFonts.mcLaren(
-                                      fontSize: 18, color: Colors.white),
-                                ),
-                                subtitle: Text(
-                                  "☎️ Phone:${oxy.phone}",
-                                  style: GoogleFonts.mcLaren(
-                                      fontSize: 14, color: Colors.white),
-                                ),
-                                trailing: Icon(
-                                  Icons.phone_forwarded,
-                                  color: Colors.green,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    });
-              }
-              return CircularProgressIndicator();
+      body: Center(
+        child: RefreshIndicator(
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              return index == 0 ? _searchbar() : _listitem(index - 1);
             },
+            itemCount: _searchedoxydata.length + 1,
           ),
-        )),
-        onRefresh: refreshlist,
+          onRefresh: refreshlist,
+        ),
+      ),
+    );
+  }
+
+  _searchbar() {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: TextField(
+        decoration: InputDecoration(hintText: "Search by District"),
+        onChanged: (text) {
+          text = text.toLowerCase();
+          setState(() {
+            _searchedoxydata = _oxydata.where((oxyeach) {
+              var oxydistrict = oxyeach.place.toLowerCase();
+              return oxydistrict.contains(text);
+            }).toList();
+          });
+        },
+      ),
+    );
+  }
+
+  _listitem(index) {
+    return Card(
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.purple),
+                shape: BoxShape.rectangle,
+                gradient: LinearGradient(colors: [Colors.purple, Colors.white]),
+                borderRadius: BorderRadius.circular(15)),
+            padding: EdgeInsets.all(15),
+            child: ListTile(
+              onTap: () {
+                String val = "tel:" + _searchedoxydata[index].phone;
+                customLaunch(val);
+              },
+              title: Text(
+                "🌐 ${_searchedoxydata[index].place}",
+                style: GoogleFonts.mcLaren(fontSize: 18, color: Colors.white),
+              ),
+              subtitle: Text(
+                "☎️ Phone:${_searchedoxydata[index].phone}",
+                style: GoogleFonts.mcLaren(fontSize: 14, color: Colors.white),
+              ),
+              trailing: Icon(
+                Icons.phone_forwarded,
+                color: Colors.green,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
