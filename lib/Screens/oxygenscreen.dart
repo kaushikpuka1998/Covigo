@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:covigo/Model/oxygen.dart';
 import 'package:covigo/widgets/drawernavigation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,26 +14,13 @@ class OxygenScreen extends StatefulWidget {
   _OxygenScreenState createState() => _OxygenScreenState();
 }
 
-List data = new List();
-
 class _OxygenScreenState extends State<OxygenScreen> {
-  getOxygen() async {
+  Future<List<Oxygen>> getOxygen() async {
     var res = await http.get(
-        Uri.parse("http://192.168.0.104/doctor_details/oxy_details.php"),
-        headers: {"Accept": "application/json"});
-
-    var jsonbody = res.body;
-
-    var jsondata = json.decode(jsonbody);
-
-    setState(() {
-      data = jsondata;
-    });
-
-    print(
-        "hellllllllllllllllllllllllllllllllllllllllllllllllllllll${jsondata[1]}");
-
-    return data;
+      Uri.parse("http://192.168.0.104/doctor_details/oxy_details.php"),
+    );
+    print(res.body);
+    return OxygenFromMap(res.body);
   }
 
   Future<void> customLaunch(String s) async {
@@ -68,47 +56,57 @@ class _OxygenScreenState extends State<OxygenScreen> {
         centerTitle: true,
       ),
       body: RefreshIndicator(
-        child: ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              return (data.length == 0)
-                  ? Center(child: Text("Data Not Present"))
-                  : Card(
-                      child: Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.purple),
-                                shape: BoxShape.rectangle,
-                                gradient: LinearGradient(
-                                    colors: [Colors.purple, Colors.white]),
-                                borderRadius: BorderRadius.circular(15)),
-                            padding: EdgeInsets.all(15),
-                            child: ListTile(
-                              onTap: () {
-                                String val = "tel:" + data[index]['Phone'];
-                                customLaunch(val);
-                              },
-                              title: Text(
-                                "🌐 ${data[index]['Place']}",
-                                style: GoogleFonts.mcLaren(
-                                    fontSize: 18, color: Colors.white),
-                              ),
-                              subtitle: Text(
-                                "☎️ Phone:${data[index]['Phone']}",
-                                style: GoogleFonts.mcLaren(
-                                    fontSize: 14, color: Colors.white),
-                              ),
-                              trailing: Icon(
-                                Icons.phone_forwarded,
-                                color: Colors.green,
+        child: Center(
+            child: Container(
+          child: FutureBuilder(
+            future: getOxygen(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (BuildContext context, index) {
+                      Oxygen oxy = snapshot.data[index];
+                      return Card(
+                        child: Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.purple),
+                                  shape: BoxShape.rectangle,
+                                  gradient: LinearGradient(
+                                      colors: [Colors.purple, Colors.white]),
+                                  borderRadius: BorderRadius.circular(15)),
+                              padding: EdgeInsets.all(15),
+                              child: ListTile(
+                                onTap: () {
+                                  String val = "tel:" + oxy.phone;
+                                  customLaunch(val);
+                                },
+                                title: Text(
+                                  "🌐 ${oxy.place}",
+                                  style: GoogleFonts.mcLaren(
+                                      fontSize: 18, color: Colors.white),
+                                ),
+                                subtitle: Text(
+                                  "☎️ Phone:${oxy.phone}",
+                                  style: GoogleFonts.mcLaren(
+                                      fontSize: 14, color: Colors.white),
+                                ),
+                                trailing: Icon(
+                                  Icons.phone_forwarded,
+                                  color: Colors.green,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-            }),
+                          ],
+                        ),
+                      );
+                    });
+              }
+              return CircularProgressIndicator();
+            },
+          ),
+        )),
         onRefresh: refreshlist,
       ),
     );
