@@ -13,7 +13,7 @@ class _BedScreenState extends State<BedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.cyanAccent,
         title: Text(
           "Bed Availability",
           style: GoogleFonts.mcLaren(fontSize: 15, fontWeight: FontWeight.w800),

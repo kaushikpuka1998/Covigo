@@ -42,6 +42,7 @@ dependencies:
   flutter_neumorphic: ^3.1.0
   pie_chart: ^5.0.0
   url_launcher: ^6.0.3
+  dropdownfield: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -59,6 +60,7 @@ flutter:
     - images/load1.gif
     - images/load.gif
     - images/load2.gif
+    - images/Corona-smiley.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

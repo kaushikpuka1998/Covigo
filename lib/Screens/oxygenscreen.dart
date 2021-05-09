@@ -90,7 +90,8 @@ class _OxygenScreenState extends State<OxygenScreen> {
     return Padding(
       padding: EdgeInsets.all(10),
       child: TextField(
-        decoration: InputDecoration(hintText: "Search by District"),
+        decoration:
+            InputDecoration(hintText: "Search by District or Area Name"),
         onChanged: (text) {
           text = text.toLowerCase();
           setState(() {

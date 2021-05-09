@@ -1,6 +1,7 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DrawerNavigation extends StatefulWidget {
   @override
@@ -11,13 +12,29 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(right: 5, top: 5),
       child: Drawer(
         child: ListView(
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text("Covigo"),
-              accountEmail: Text("Version 1.0"),
-              decoration: BoxDecoration(color: Colors.green),
+            DrawerHeader(
+              child: Column(
+                children: [
+                  Text(
+                    "Covigo",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.sacramento(
+                        fontSize: 40, color: Colors.white),
+                  ),
+                  Image.asset(
+                    "images/Corona-smiley.png",
+                    height: 60,
+                    width: 60,
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
             ),
             ListTile(
               onTap: () {

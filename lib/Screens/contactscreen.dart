@@ -78,7 +78,8 @@ class _ContactScreenState extends State<ContactScreen> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextField(
-          decoration: InputDecoration(hintText: "Search by District"),
+          decoration:
+              InputDecoration(hintText: "Search by District or Area Name"),
           onChanged: (text) {
             text = text.toLowerCase();
             setState(() {
