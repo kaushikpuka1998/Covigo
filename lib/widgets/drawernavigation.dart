@@ -12,7 +12,6 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(right: 5, top: 5),
       child: Drawer(
         child: ListView(
           children: <Widget>[
@@ -80,7 +79,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
               onTap: () {
                 Navigator.pushNamed(context, 'updateoncovidpage');
               },
-              title: Text('Update On Covid-19'),
+              title: Text('Blood Bank/Plasma'),
               leading: Icon(
                 CommunityMaterialIcons.update,
                 color: Colors.blue,

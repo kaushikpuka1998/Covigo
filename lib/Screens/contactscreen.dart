@@ -31,6 +31,14 @@ class _ContactScreenState extends State<ContactScreen> {
     return DoctorFromMap(res.body);
   }
 
+  Future<Null> refreshlist() async {
+    await Future.delayed(Duration(seconds: 1));
+    _docdata.clear();
+    setState(() {
+      getContact();
+    });
+  }
+
   @override
   void initState() {
     getContact();
@@ -64,11 +72,14 @@ class _ContactScreenState extends State<ContactScreen> {
           ),
           centerTitle: true,
         ),
-        body: ListView.builder(
-          itemBuilder: (context, index) {
-            return index == 0 ? _searchbar() : _listitem(index - 1);
-          },
-          itemCount: _searcheddocdata.length + 1,
+        body: RefreshIndicator(
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              return index == 0 ? _searchbar() : _listitem(index - 1);
+            },
+            itemCount: _searcheddocdata.length + 1,
+          ),
+          onRefresh: refreshlist,
         ));
   }
 

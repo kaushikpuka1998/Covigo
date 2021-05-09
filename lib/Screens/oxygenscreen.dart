@@ -55,9 +55,9 @@ class _OxygenScreenState extends State<OxygenScreen> {
 
   Future<Null> refreshlist() async {
     await Future.delayed(Duration(seconds: 1));
+    _oxydata.clear();
     setState(() {
       getOxygen();
-      _searchedoxydata = _oxydata;
     });
   }
 
