@@ -41,7 +41,6 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   void initState() {
-    getContact();
     getContact().then((value) {
       setState(() {
         _docdata.clear();

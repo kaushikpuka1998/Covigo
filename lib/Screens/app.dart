@@ -13,6 +13,8 @@ import 'package:covigo/Screens/vaccinescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'creditscreen.dart';
+
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class App extends StatelessWidget {
         'updateoncovidpage': (context) => UpdateoncovidScreen(),
         'covidinformationpage': (context) => CovidInformationScreen(),
         'contactpage': (context) => ContactScreen(),
+        'creditpage': (context) => CreditScreen(),
       },
     );
   }

@@ -1,4 +1,8 @@
+//@dart =2.9
+
+import 'package:covigo/Model/apiforpdf.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeisolationScreen extends StatefulWidget {
@@ -7,23 +11,36 @@ class HomeisolationScreen extends StatefulWidget {
 }
 
 class _HomeisolationScreenState extends State<HomeisolationScreen> {
+  String _localfile;
+
+  @override
+  void initState() {
+    Apiservice.loadPDF().then((value) {
+      setState(() {
+        _localfile = value;
+        print(_localfile);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: Text(
-          "Covigo",
-          style:
-              GoogleFonts.sacramento(fontSize: 35, fontWeight: FontWeight.w800),
+          "Home Isolation Protocol",
+          style: GoogleFonts.mcLaren(fontSize: 35, fontWeight: FontWeight.w800),
         ),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          "Home Isolation Page",
-        ),
-      ),
+      body: _localfile != null
+          ? Container(
+              child: PDFView(
+                filePath: _localfile,
+              ),
+            )
+          : Center(child: CircularProgressIndicator()),
     );
   }
 }

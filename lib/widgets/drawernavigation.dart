@@ -39,7 +39,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
               onTap: () {
                 Navigator.pushNamed(context, 'bedpage');
               },
-              title: Text('Bed Availiviliy'),
+              title: Text('Bed Availibility'),
               leading: Icon(
                 Icons.bed,
                 color: Colors.cyanAccent,
@@ -67,12 +67,12 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
             ),
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, 'homeisolationpage');
+                Navigator.pushNamed(context, 'contactpage');
               },
-              title: Text('Home Isolation Protocols'),
+              title: Text('Doctors'),
               leading: Icon(
-                Icons.room_preferences,
-                color: Colors.deepPurpleAccent,
+                CommunityMaterialIcons.contacts,
+                color: Colors.deepOrange,
               ),
             ),
             ListTile(
@@ -97,16 +97,19 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
             ),
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, 'contactpage');
+                Navigator.pushNamed(context, 'homeisolationpage');
               },
-              title: Text('Doctors'),
+              title: Text('Home Isolation Protocols'),
               leading: Icon(
-                CommunityMaterialIcons.contacts,
-                color: Colors.deepOrange,
+                Icons.room_preferences,
+                color: Colors.deepPurpleAccent,
               ),
             ),
             ListTile(
-              title: Text('Rate'),
+              onTap: () {
+                Navigator.pushNamed(context, 'creditpage');
+              },
+              title: Text('Credits'),
               leading: Icon(
                 Icons.star_border,
                 color: Colors.teal,

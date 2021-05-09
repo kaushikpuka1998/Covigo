@@ -33,7 +33,6 @@ class _UpdateoncovidScreenState extends State<UpdateoncovidScreen> {
 
   @override
   void initState() {
-    getPlasma();
     getPlasma().then((value) {
       setState(() {
         _plasmadata.clear();

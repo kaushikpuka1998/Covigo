@@ -42,7 +42,6 @@ class _OxygenScreenState extends State<OxygenScreen> {
 
   @override
   void initState() {
-    getOxygen();
     getOxygen().then((value) {
       setState(() {
         _oxydata.clear();
