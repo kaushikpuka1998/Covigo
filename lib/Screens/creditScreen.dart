@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -30,15 +29,13 @@ class _CreditScreenState extends State<CreditScreen> {
                 gradient: LinearGradient(colors: [Colors.teal, Colors.purple]),
                 borderRadius: BorderRadius.circular(10)),
             padding: EdgeInsets.all(15),
-            child: Expanded(
-              child: ListTile(
-                title: Text(
-                  "Developed By Kaushik Ghosh",
-                  style: GoogleFonts.mcLaren(fontSize: 16, color: Colors.white),
-                ),
-                leading: Image.network(
-                  'https://fooddataapi.s3.ap-south-1.amazonaws.com/kaushik.jpg',
-                ),
+            child: ListTile(
+              title: Text(
+                "Developed By Kaushik Ghosh",
+                style: GoogleFonts.mcLaren(fontSize: 16, color: Colors.white),
+              ),
+              leading: Image.network(
+                'https://fooddataapi.s3.ap-south-1.amazonaws.com/kaushik.jpg',
               ),
             ),
           ),
@@ -48,15 +45,13 @@ class _CreditScreenState extends State<CreditScreen> {
                 gradient: LinearGradient(colors: [Colors.teal, Colors.purple]),
                 borderRadius: BorderRadius.circular(10)),
             padding: EdgeInsets.all(15),
-            child: Expanded(
-              child: ListTile(
-                title: Text(
-                  "Data Resourced By Novonil Deb",
-                  style: GoogleFonts.mcLaren(fontSize: 16, color: Colors.white),
-                ),
-                leading: Image.network(
-                  'https://fooddataapi.s3.ap-south-1.amazonaws.com/Novonil.jpeg',
-                ),
+            child: ListTile(
+              title: Text(
+                "Data Resourced By Novonil Deb",
+                style: GoogleFonts.mcLaren(fontSize: 16, color: Colors.white),
+              ),
+              leading: Image.network(
+                'https://fooddataapi.s3.ap-south-1.amazonaws.com/Novonil.jpeg',
               ),
             ),
           ),

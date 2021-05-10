@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import 'bedscreen.dart';
 import 'contactscreen.dart';
 import 'covidinformationscreen.dart';
-import 'creditscreen.dart';
+import 'creditScreen.dart';
 import 'homeisolationscreen.dart';
 import 'mainpage.dart';
 import 'oxygenscreen.dart';
