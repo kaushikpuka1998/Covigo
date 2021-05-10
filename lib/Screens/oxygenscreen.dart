@@ -2,8 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:covigo/Model/oxygen.dart';
-import 'package:covigo/widgets/drawernavigation.dart';
+import 'package:Covigo/Model/oxygen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -19,7 +18,7 @@ class _OxygenScreenState extends State<OxygenScreen> {
   List<Oxygen> _searchedoxydata = List<Oxygen>();
   Future<List<Oxygen>> getOxygen() async {
     var res = await http.get(
-      Uri.parse("http://192.168.0.104/doctor_details/oxy_details.php"),
+      Uri.parse("https://fooddataapi.s3.ap-south-1.amazonaws.com/oxygen.json"),
     );
     print(res.body);
 
@@ -52,14 +51,6 @@ class _OxygenScreenState extends State<OxygenScreen> {
     super.initState();
   }
 
-  Future<Null> refreshlist() async {
-    await Future.delayed(Duration(seconds: 1));
-    _oxydata.clear();
-    setState(() {
-      getOxygen();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,15 +63,24 @@ class _OxygenScreenState extends State<OxygenScreen> {
         centerTitle: true,
       ),
       body: Center(
-        child: RefreshIndicator(
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return index == 0 ? _searchbar() : _listitem(index - 1);
-            },
-            itemCount: _searchedoxydata.length + 1,
-          ),
-          onRefresh: refreshlist,
-        ),
+        child: (_oxydata.length != 0)
+            ? ListView.builder(
+                itemBuilder: (context, index) {
+                  return index == 0 ? _searchbar() : _listitem(index - 1);
+                },
+                itemCount: _searchedoxydata.length + 1,
+              )
+            : Container(
+                child: Column(
+                  children: [
+                    CircularProgressIndicator(),
+                    Text(
+                      "Loading",
+                      style: GoogleFonts.mcLaren(color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
       ),
     );
   }
@@ -117,7 +117,7 @@ class _OxygenScreenState extends State<OxygenScreen> {
             padding: EdgeInsets.all(15),
             child: ListTile(
               onTap: () {
-                String val = "tel:" + _searchedoxydata[index].phone;
+                String val = "tel:" + _searchedoxydata[index].phone.toString();
                 customLaunch(val);
               },
               title: Text(
@@ -125,7 +125,7 @@ class _OxygenScreenState extends State<OxygenScreen> {
                 style: GoogleFonts.mcLaren(fontSize: 18, color: Colors.white),
               ),
               subtitle: Text(
-                "☎️ Phone:${_searchedoxydata[index].phone}",
+                "☎️ Phone:${_searchedoxydata[index].phone.toString()}",
                 style: GoogleFonts.mcLaren(fontSize: 14, color: Colors.white),
               ),
               trailing: Icon(

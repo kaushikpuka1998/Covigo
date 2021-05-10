@@ -1,12 +1,12 @@
 //@dart = 2.9
 
 import 'dart:convert';
+import 'package:Covigo/widgets/drawernavigation.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:covigo/widgets/drawernavigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -20,7 +20,7 @@ Map<String, dynamic> map = new Map<String, dynamic>();
 Map<String, dynamic> mapnew = new Map<String, dynamic>();
 Map<String, dynamic> dose = new Map<String, dynamic>();
 int ln;
-bool check = true;
+bool check = false;
 
 class MainPage extends StatefulWidget {
   @override
@@ -313,8 +313,11 @@ class _MainPageState extends State<MainPage> {
                         child: Container(
                           height: 120,
                           width: 160,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.red[100],
+                          ),
                           alignment: Alignment.center,
-                          color: Colors.red[100],
                           padding: EdgeInsets.all(20),
                           child: Text(
                             "CONFIRMED\n${map['${state}'] == null ? "--" : var1}",
@@ -328,8 +331,11 @@ class _MainPageState extends State<MainPage> {
                         child: Container(
                           height: 120,
                           width: 160,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.blue[100],
+                          ),
                           alignment: Alignment.center,
-                          color: Colors.blue[100],
                           child: Text(
                             "ACTIVE\n${map['${state}'] == null ? mapnew["activeCases"].toString() : var2}",
                             style: GoogleFonts.mcLaren(
@@ -355,8 +361,11 @@ class _MainPageState extends State<MainPage> {
                         child: Container(
                           height: 120,
                           width: 160,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.green[100],
+                          ),
                           alignment: Alignment.center,
-                          color: Colors.green[100],
                           padding: EdgeInsets.all(20),
                           child: Text(
                             "RECOVERED\n${map['${state}'] == null ? mapnew["recovered"].toString() : var3}",
@@ -371,8 +380,11 @@ class _MainPageState extends State<MainPage> {
                         child: Container(
                           height: 120,
                           width: 160,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.blueGrey[100],
+                          ),
                           alignment: Alignment.center,
-                          color: Colors.blueGrey[100],
                           child: Text(
                             "DEATH\n${map['${state}'] == null ? mapnew["deaths"].toString() : var4}",
                             style: GoogleFonts.mcLaren(
@@ -490,7 +502,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     Text(
-                      "(*) Zero Means System Upgrade for Delta Change",
+                      "(*) Zero Means System Upgrade for Delta Change\n State Data Updated by https://covid19india.org\nin afternoon everyday",
                       style: TextStyle(color: Colors.grey),
                     ),
                     Container(
@@ -510,8 +522,8 @@ class _MainPageState extends State<MainPage> {
                               padding: EdgeInsets.only(left: 4, bottom: 20),
                               child: Neumorphic(
                                 child: Container(
-                                  height: 120,
-                                  width: 120,
+                                  height: 130,
+                                  width: 130,
                                   alignment: Alignment(0, 0),
                                   decoration: BoxDecoration(
                                     border:
@@ -521,8 +533,8 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                   child: Text(
                                     "Age\n45-60\n1st Dose:\n${(ln == null) ? "" : dose["tested"][ln - 1]["over45years1stdose"] == "" ? dose["tested"][ln - 2]["over45years1stdose"] : dose["tested"][ln - 1]["over45years1stdose"]}",
-                                    style:
-                                        GoogleFonts.mcLaren(color: Colors.red),
+                                    style: GoogleFonts.mcLaren(
+                                        fontSize: 12, color: Colors.red),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -534,8 +546,8 @@ class _MainPageState extends State<MainPage> {
                               padding: EdgeInsets.only(left: 4, bottom: 20),
                               child: Neumorphic(
                                 child: Container(
-                                  height: 120,
-                                  width: 120,
+                                  height: 130,
+                                  width: 130,
                                   alignment: Alignment(0, 0),
                                   decoration: BoxDecoration(
                                     border: Border.all(
@@ -546,8 +558,8 @@ class _MainPageState extends State<MainPage> {
                                   child: Text(
                                     "Age\n45 - 60\n2nd Dose:\n${(ln != null) ? dose["tested"][ln - 1]["over45years2nddose"] == "" ? dose["tested"][ln - 2]["over45years2nddose"] : dose["tested"][ln - 1]["over45years2nddose"] : ""}",
                                     textAlign: TextAlign.center,
-                                    style:
-                                        GoogleFonts.mcLaren(color: Colors.blue),
+                                    style: GoogleFonts.mcLaren(
+                                        fontSize: 12, color: Colors.blue),
                                   ),
                                 ),
                               ),
@@ -558,8 +570,8 @@ class _MainPageState extends State<MainPage> {
                               padding: EdgeInsets.only(left: 4, bottom: 20),
                               child: Neumorphic(
                                 child: Container(
-                                  height: 120,
-                                  width: 120,
+                                  height: 130,
+                                  width: 130,
                                   alignment: Alignment(0, 0),
                                   decoration: BoxDecoration(
                                     border: Border.all(
@@ -571,7 +583,7 @@ class _MainPageState extends State<MainPage> {
                                     "Age\nAfter 60\n1st Dose:\n${(ln != null) ? dose["tested"][ln - 1]["over60years1stdose"] == "" ? dose["tested"][ln - 2]["over60years1stdose"] : dose["tested"][ln - 1]["over60years1stdose"] : ""}",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.mcLaren(
-                                        color: Colors.purple),
+                                        fontSize: 12, color: Colors.purple),
                                   ),
                                 ),
                               ),
@@ -583,8 +595,8 @@ class _MainPageState extends State<MainPage> {
                                   left: 4, bottom: 20, right: 4),
                               child: Neumorphic(
                                 child: Container(
-                                  height: 120,
-                                  width: 120,
+                                  height: 130,
+                                  width: 130,
                                   alignment: Alignment(0, 0),
                                   decoration: BoxDecoration(
                                     border: Border.all(
@@ -595,7 +607,7 @@ class _MainPageState extends State<MainPage> {
                                   child: Text(
                                     "Age\nAfter 60\n2nd Dose:\n${(ln != null) ? dose["tested"][ln - 1]["over60years2nddose"] == "" ? dose["tested"][ln - 2]["over60years2nddose"] : dose["tested"][ln - 1]["over60years2nddose"] : ""}",
                                     style: GoogleFonts.mcLaren(
-                                        color: Colors.green),
+                                        fontSize: 12, color: Colors.green),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),

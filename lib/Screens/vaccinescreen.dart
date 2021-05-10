@@ -3,9 +3,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:Covigo/Model/responsive.dart';
+import 'package:Covigo/Model/vaccine.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:covigo/Model/responsive.dart';
-import 'package:covigo/Model/vaccine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -184,7 +184,7 @@ class _VaccinescreenState extends State<Vaccinescreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Search Vaccination Center Details by Pincode of your Area and Desired Date",
+                      "Search Vaccination Center Details by Pincode of your Area",
                       style: GoogleFonts.openSans(
                           fontSize: 10, fontWeight: FontWeight.w400),
                     ),

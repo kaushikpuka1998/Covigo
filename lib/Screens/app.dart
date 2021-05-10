@@ -2,18 +2,17 @@
 
 import 'dart:convert';
 
-import 'package:covigo/Screens/bedscreen.dart';
-import 'package:covigo/Screens/contactscreen.dart';
-import 'package:covigo/Screens/covidinformationscreen.dart';
-import 'package:covigo/Screens/homeisolationscreen.dart';
-import 'package:covigo/Screens/mainpage.dart';
-import 'package:covigo/Screens/oxygenscreen.dart';
-import 'package:covigo/Screens/updateoncovidscreen.dart';
-import 'package:covigo/Screens/vaccinescreen.dart';
+import 'package:Covigo/Screens/updateoncovidscreen.dart';
+import 'package:Covigo/Screens/vaccinescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'bedscreen.dart';
+import 'contactscreen.dart';
+import 'covidinformationscreen.dart';
 import 'creditscreen.dart';
+import 'homeisolationscreen.dart';
+import 'mainpage.dart';
+import 'oxygenscreen.dart';
 
 class App extends StatelessWidget {
   @override

@@ -12,6 +12,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 200,
       child: Drawer(
         child: ListView(
           children: <Widget>[
@@ -24,10 +25,12 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
                     style: GoogleFonts.sacramento(
                         fontSize: 40, color: Colors.white),
                   ),
-                  Image.asset(
-                    "images/Corona-smiley.png",
-                    height: 60,
-                    width: 60,
+                  Expanded(
+                    child: Image.asset(
+                      "images/Corona-smiley.png",
+                      height: 60,
+                      width: 60,
+                    ),
                   )
                 ],
               ),

@@ -16,7 +16,7 @@ class Doctor {
   });
 
   String name;
-  String phone;
+  dynamic phone;
   String region;
 
   factory Doctor.fromMap(Map<String, dynamic> json) => Doctor(

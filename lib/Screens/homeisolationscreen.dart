@@ -1,6 +1,6 @@
 //@dart =2.9
 
-import 'package:covigo/Model/apiforpdf.dart';
+import 'package:Covigo/Model/apiforpdf.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,10 +27,10 @@ class _HomeisolationScreenState extends State<HomeisolationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.deepPurpleAccent,
         title: Text(
           "Home Isolation Protocol",
-          style: GoogleFonts.mcLaren(fontSize: 35, fontWeight: FontWeight.w800),
+          style: GoogleFonts.mcLaren(fontSize: 15, fontWeight: FontWeight.w800),
         ),
         centerTitle: true,
       ),

@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:covigo/Model/plasma.dart';
+import 'package:Covigo/Model/plasma.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
@@ -18,7 +18,7 @@ class _UpdateoncovidScreenState extends State<UpdateoncovidScreen> {
   List<Plasma> _searchedplasmadata = List<Plasma>();
   Future<List<Plasma>> getPlasma() async {
     var res = await http.get(
-      Uri.parse("http://192.168.0.104/doctor_details/plasma.php"),
+      Uri.parse("https://fooddataapi.s3.ap-south-1.amazonaws.com/plasma.json"),
     );
     print(res.body);
 
@@ -51,14 +51,6 @@ class _UpdateoncovidScreenState extends State<UpdateoncovidScreen> {
     }
   }
 
-  Future<Null> refreshlist() async {
-    await Future.delayed(Duration(seconds: 1));
-    _plasmadata.clear();
-    setState(() {
-      getPlasma();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,15 +63,26 @@ class _UpdateoncovidScreenState extends State<UpdateoncovidScreen> {
         centerTitle: true,
       ),
       body: Center(
-        child: RefreshIndicator(
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return index == 0 ? _searchbar() : _listitem(index - 1);
-            },
-            itemCount: _searchedplasmadata.length + 1,
-          ),
-          onRefresh: refreshlist,
-        ),
+        child: (_plasmadata.length != 0)
+            ? ListView.builder(
+                itemBuilder: (context, index) {
+                  return index == 0 ? _searchbar() : _listitem(index - 1);
+                },
+                itemCount: _searchedplasmadata.length + 1,
+              )
+            : Center(
+                child: Container(
+                  child: Column(
+                    children: [
+                      CircularProgressIndicator(),
+                      Text(
+                        "Loading",
+                        style: GoogleFonts.mcLaren(color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
       ),
     );
   }
@@ -116,7 +119,8 @@ class _UpdateoncovidScreenState extends State<UpdateoncovidScreen> {
             padding: EdgeInsets.all(15),
             child: ListTile(
               onTap: () {
-                String val = "tel:" + _searchedplasmadata[index].phone;
+                String val =
+                    "tel:" + _searchedplasmadata[index].phone.toString();
                 customLaunch(val);
               },
               title: Text(

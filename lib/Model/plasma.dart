@@ -18,7 +18,7 @@ class Plasma {
   });
 
   String hospital;
-  String phone;
+  dynamic phone;
 
   factory Plasma.fromMap(Map<String, dynamic> json) => Plasma(
         hospital: json["hospital"],

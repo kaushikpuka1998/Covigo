@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:covigo/Model/doctor.dart';
+import 'package:Covigo/Model/doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,7 +18,7 @@ class _ContactScreenState extends State<ContactScreen> {
   List<Doctor> _searcheddocdata = new List();
   Future<List<Doctor>> getContact() async {
     var res = await http.get(
-      Uri.parse("http://192.168.0.104/doctor_details/conection.php"),
+      Uri.parse("https://fooddataapi.s3.ap-south-1.amazonaws.com/docto.json"),
     );
     print(res.body);
 
@@ -29,14 +29,6 @@ class _ContactScreenState extends State<ContactScreen> {
       }
     }
     return DoctorFromMap(res.body);
-  }
-
-  Future<Null> refreshlist() async {
-    await Future.delayed(Duration(seconds: 1));
-    _docdata.clear();
-    setState(() {
-      getContact();
-    });
   }
 
   @override
@@ -62,24 +54,36 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.deepOrange,
-          title: Text(
-            "Doctor Details",
-            style:
-                GoogleFonts.mcLaren(fontSize: 15, fontWeight: FontWeight.w800),
-          ),
-          centerTitle: true,
+      appBar: AppBar(
+        backgroundColor: Colors.deepOrange,
+        title: Text(
+          "Doctor Details",
+          style: GoogleFonts.mcLaren(fontSize: 15, fontWeight: FontWeight.w800),
         ),
-        body: RefreshIndicator(
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return index == 0 ? _searchbar() : _listitem(index - 1);
-            },
-            itemCount: _searcheddocdata.length + 1,
-          ),
-          onRefresh: refreshlist,
-        ));
+        centerTitle: true,
+      ),
+      body: (_docdata.length != 0)
+          ? Center(
+              child: ListView.builder(
+              itemBuilder: (context, index) {
+                return index == 0 ? _searchbar() : _listitem(index - 1);
+              },
+              itemCount: _searcheddocdata.length + 1,
+            ))
+          : Center(
+              child: Container(
+                child: Column(
+                  children: [
+                    CircularProgressIndicator(),
+                    Text(
+                      "Loading",
+                      style: GoogleFonts.mcLaren(color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+    );
   }
 
   _searchbar() {
@@ -118,7 +122,7 @@ class _ContactScreenState extends State<ContactScreen> {
             padding: EdgeInsets.all(15),
             child: ListTile(
               onTap: () {
-                String val = "tel:" + _searcheddocdata[index].phone;
+                String val = "tel:" + _searcheddocdata[index].phone.toString();
                 customLaunch(val);
               },
               title: Text(

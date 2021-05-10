@@ -15,7 +15,7 @@ class Oxygen {
   });
 
   String place;
-  String phone;
+  dynamic phone;
 
   factory Oxygen.fromMap(Map<String, dynamic> json) => Oxygen(
         place: json["Place"],

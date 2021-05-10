@@ -1,4 +1,4 @@
-name: covigo
+name: Covigo
 description: Covid Details
 
 # The following line prevents the package from being accidentally published to
@@ -45,6 +45,7 @@ dependencies:
   dropdownfield: ^1.0.3
   flutter_pdfview: ^1.1.0
   path_provider: ^2.0.1
+  velocity_x: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -56,11 +57,6 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   assets:
-    - images/mask.jpg
-    - images/sani.jpg
-    - images/social.jpg
-    - images/load1.gif
-    - images/load.gif
     - images/load2.gif
     - images/Corona-smiley.png
   # The following line ensures that the Material Icons font is
