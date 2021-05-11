@@ -40,6 +40,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
             ),
             ListTile(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.pushNamed(context, 'bedpage');
               },
               title: Text('Bed Availibility'),
@@ -50,6 +51,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
             ),
             ListTile(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.pushNamed(context, 'vaccinepage');
               },
               title: Text('Vaccine Details'),
@@ -60,6 +62,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
             ),
             ListTile(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.pushNamed(context, 'oxygenpage');
               },
               title: Text('Oxygen Supply'),
@@ -70,6 +73,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
             ),
             ListTile(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.pushNamed(context, 'contactpage');
               },
               title: Text('Doctors'),
@@ -80,6 +84,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
             ),
             ListTile(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.pushNamed(context, 'updateoncovidpage');
               },
               title: Text('Blood Bank/Plasma'),
@@ -90,6 +95,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
             ),
             ListTile(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.pushNamed(context, 'covidinformationpage');
               },
               title: Text('Covid Information'),
@@ -100,6 +106,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
             ),
             ListTile(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.pushNamed(context, 'homeisolationpage');
               },
               title: Text('Home Isolation Protocols'),
@@ -110,6 +117,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
             ),
             ListTile(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.pushNamed(context, 'creditpage');
               },
               title: Text('Credits'),

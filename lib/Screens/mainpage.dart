@@ -195,10 +195,11 @@ class _MainPageState extends State<MainPage> {
               Container(
                 child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.tealAccent,
-                      borderRadius: BorderRadius.circular(2),
+                      gradient: LinearGradient(
+                          colors: [Colors.lightBlue, Colors.tealAccent]),
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    margin: EdgeInsets.all(2),
+                    margin: EdgeInsets.all(10),
                     child: DropDownField(
                       controller: stateController,
                       hintText: "Select State...",
@@ -218,10 +219,11 @@ class _MainPageState extends State<MainPage> {
               Container(
                 child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.tealAccent,
-                      borderRadius: BorderRadius.circular(2),
+                      gradient: LinearGradient(
+                          colors: [Colors.lightBlue, Colors.tealAccent]),
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    margin: EdgeInsets.all(2),
+                    margin: EdgeInsets.all(10),
                     child: DropDownField(
                       controller: districtController,
                       hintText: "Select District...",
@@ -461,6 +463,7 @@ class _MainPageState extends State<MainPage> {
                   children: <Widget>[
                     Container(
                       padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.only(left: 10, right: 10),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               colors: [Colors.orange, Colors.white])),
@@ -474,6 +477,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     Container(
+                      margin: EdgeInsets.only(left: 10, right: 10),
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -488,6 +492,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     Container(
+                      margin: EdgeInsets.only(left: 10, right: 10),
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -519,7 +524,7 @@ class _MainPageState extends State<MainPage> {
                         children: <Widget>[
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.only(left: 4, bottom: 20),
+                              padding: EdgeInsets.only(left: 10, bottom: 20),
                               child: Neumorphic(
                                 child: Container(
                                   height: 130,
@@ -534,7 +539,7 @@ class _MainPageState extends State<MainPage> {
                                   child: Text(
                                     "Age\n45-60\n1st Dose:\n${(ln == null) ? "" : dose["tested"][ln - 1]["over45years1stdose"] == "" ? dose["tested"][ln - 2]["over45years1stdose"] : dose["tested"][ln - 1]["over45years1stdose"]}",
                                     style: GoogleFonts.mcLaren(
-                                        fontSize: 12, color: Colors.red),
+                                        fontSize: 10, color: Colors.red),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -559,7 +564,7 @@ class _MainPageState extends State<MainPage> {
                                     "Age\n45 - 60\n2nd Dose:\n${(ln != null) ? dose["tested"][ln - 1]["over45years2nddose"] == "" ? dose["tested"][ln - 2]["over45years2nddose"] : dose["tested"][ln - 1]["over45years2nddose"] : ""}",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.mcLaren(
-                                        fontSize: 12, color: Colors.blue),
+                                        fontSize: 10, color: Colors.blue),
                                   ),
                                 ),
                               ),
@@ -583,7 +588,7 @@ class _MainPageState extends State<MainPage> {
                                     "Age\nAfter 60\n1st Dose:\n${(ln != null) ? dose["tested"][ln - 1]["over60years1stdose"] == "" ? dose["tested"][ln - 2]["over60years1stdose"] : dose["tested"][ln - 1]["over60years1stdose"] : ""}",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.mcLaren(
-                                        fontSize: 12, color: Colors.purple),
+                                        fontSize: 10, color: Colors.purple),
                                   ),
                                 ),
                               ),
@@ -592,7 +597,7 @@ class _MainPageState extends State<MainPage> {
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.only(
-                                  left: 4, bottom: 20, right: 4),
+                                  left: 4, bottom: 20, right: 10),
                               child: Neumorphic(
                                 child: Container(
                                   height: 130,
@@ -607,7 +612,7 @@ class _MainPageState extends State<MainPage> {
                                   child: Text(
                                     "Age\nAfter 60\n2nd Dose:\n${(ln != null) ? dose["tested"][ln - 1]["over60years2nddose"] == "" ? dose["tested"][ln - 2]["over60years2nddose"] : dose["tested"][ln - 1]["over60years2nddose"] : ""}",
                                     style: GoogleFonts.mcLaren(
-                                        fontSize: 12, color: Colors.green),
+                                        fontSize: 10, color: Colors.green),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),

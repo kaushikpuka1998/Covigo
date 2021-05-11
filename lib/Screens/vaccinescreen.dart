@@ -162,148 +162,156 @@ class _VaccinescreenState extends State<Vaccinescreen> {
 
   _searchbar() {
     return Container(
-        child: Wrap(
+        child: Row(
       children: <Widget>[
-        Container(
-          width: Responsive.width(100, context),
-          height: Responsive.width(60, context),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              width: 1,
-              color: Colors.green,
-              style: BorderStyle.solid,
+        Expanded(
+          child: Container(
+            width: Responsive.width(80, context),
+            height: Responsive.width(90, context),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                width: 5,
+                color: Colors.green,
+                style: BorderStyle.solid,
+              ),
             ),
-          ),
-          margin: EdgeInsets.all(2),
-          child: Column(
-            children: [
-              Title(
+            margin: EdgeInsets.all(2),
+            child: Column(
+              children: [
+                Title(
                   color: Colors.blue,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Search Vaccination Center Details by Pincode of your Area",
-                      style: GoogleFonts.openSans(
-                          fontSize: 10, fontWeight: FontWeight.w400),
+                      "Search Vaccination Center Details\n by Pincode of your Area",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.mcLaren(
+                          fontSize: 16, fontWeight: FontWeight.w400),
                     ),
-                  )),
-              Container(
-                color: Colors.green,
-                child: TextField(
-                  controller: pincodeController,
-                  style: GoogleFonts.mcLaren(color: Colors.white),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Enter Pincode",
-                    hintStyle:
-                        GoogleFonts.mcLaren(color: Colors.white, fontSize: 12),
-                    suffixIcon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                    contentPadding: EdgeInsets.all(10),
                   ),
                 ),
-                margin: EdgeInsets.only(bottom: 2),
-              ),
-              Container(
-                color: Colors.green,
-                child: TextField(
-                  cursorColor: Colors.green,
-                  decoration: InputDecoration(
-                      hintText: "Select Date",
-                      hintStyle: GoogleFonts.mcLaren(color: Colors.white),
-                      icon: Icon(
-                        Icons.date_range_outlined,
+                Container(
+                  color: Colors.green,
+                  child: TextField(
+                    controller: pincodeController,
+                    style: GoogleFonts.mcLaren(color: Colors.white),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Enter Pincode",
+                      prefixIcon: Icon(
+                        Icons.pin_drop,
                         color: Colors.white,
                       ),
-                      fillColor: Colors.white),
-                  controller: datecontroller,
-                  onTap: () {
-                    showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2021),
-                      lastDate: DateTime(2030),
-                    ).then((pickedDate) {
-                      datecontroller.text = pickedDate == null
-                          ? DateFormat('dd-MM-yyyy')
-                              .format(DateTime.now())
-                              .toString()
-                          : DateFormat('dd-MM-yyyy')
-                              .format(pickedDate)
-                              .toString();
-                    });
-                  },
+                      hintStyle: GoogleFonts.mcLaren(
+                          color: Colors.white, fontSize: 15),
+                      suffixIcon: Icon(
+                        Icons.search,
+                        color: Colors.white,
+                      ),
+                      contentPadding: EdgeInsets.all(10),
+                    ),
+                  ),
+                  margin: EdgeInsets.only(bottom: 2),
                 ),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    if (pincodeController.text == "") {
-                      return showCupertinoDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                title: new Text(
-                                  "Alert",
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                                content: new Text("Pincode is Missing"),
-                                actions: <Widget>[
-                                  CupertinoDialogAction(
-                                    child: Text("Close"),
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(false),
+                Container(
+                  color: Colors.green,
+                  child: TextField(
+                    cursorColor: Colors.green,
+                    decoration: InputDecoration(
+                        hintText: "Select Date",
+                        hintStyle: GoogleFonts.mcLaren(color: Colors.white),
+                        prefixIcon: Icon(
+                          Icons.date_range_outlined,
+                          color: Colors.white,
+                        ),
+                        fillColor: Colors.white),
+                    controller: datecontroller,
+                    onTap: () {
+                      showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2021),
+                        lastDate: DateTime(2030),
+                      ).then((pickedDate) {
+                        datecontroller.text = pickedDate == null
+                            ? DateFormat('dd-MM-yyyy')
+                                .format(DateTime.now())
+                                .toString()
+                            : DateFormat('dd-MM-yyyy')
+                                .format(pickedDate)
+                                .toString();
+                      });
+                    },
+                  ),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      if (pincodeController.text == "") {
+                        return showCupertinoDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: new Text(
+                                    "Alert",
+                                    style: TextStyle(color: Colors.red),
                                   ),
-                                ],
-                              ));
-                    } else if (datecontroller.text == "") {
-                      return showCupertinoDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                title: new Text(
-                                  "Dialog Title",
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                                content: new Text("Date is Missing"),
-                                actions: <Widget>[
-                                  CupertinoDialogAction(
-                                    isDefaultAction: true,
-                                    child: Text("Close"),
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(false),
+                                  content: new Text("Pincode is Missing"),
+                                  actions: <Widget>[
+                                    CupertinoDialogAction(
+                                      child: Text("Close"),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                    ),
+                                  ],
+                                ));
+                      } else if (datecontroller.text == "") {
+                        return showCupertinoDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: new Text(
+                                    "Dialog Title",
+                                    style: TextStyle(color: Colors.red),
                                   ),
-                                ],
-                              ));
-                    } else if (pincodeController.text == "" &&
-                        datecontroller.text != "") {
-                      return showCupertinoDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                title: new Text(
-                                  "Alert",
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                                content: new Text("Pincode is Missing"),
-                                actions: <Widget>[
-                                  CupertinoDialogAction(
-                                    child: Text("Close"),
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(false),
+                                  content: new Text("Date is Missing"),
+                                  actions: <Widget>[
+                                    CupertinoDialogAction(
+                                      isDefaultAction: true,
+                                      child: Text("Close"),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                    ),
+                                  ],
+                                ));
+                      } else if (pincodeController.text == "" &&
+                          datecontroller.text != "") {
+                        return showCupertinoDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: new Text(
+                                    "Alert",
+                                    style: TextStyle(color: Colors.red),
                                   ),
-                                ],
-                              ));
-                    } else {
-                      getData();
-                      print(
-                          "hhhhhhgurighitjgiiiiiiiiiiiiiiotitjgbiojjjjjjjjjjjjjjjjjjjg");
-                      datecontroller.clear();
-                      pincodeController.clear();
-                    }
-                  },
-                  child: Text("Press to get Information"))
-            ],
+                                  content: new Text("Pincode is Missing"),
+                                  actions: <Widget>[
+                                    CupertinoDialogAction(
+                                      child: Text("Close"),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                    ),
+                                  ],
+                                ));
+                      } else {
+                        getData();
+                        print(
+                            "hhhhhhgurighitjgiiiiiiiiiiiiiiotitjgbiojjjjjjjjjjjjjjjjjjjg");
+                        datecontroller.clear();
+                        pincodeController.clear();
+                      }
+                    },
+                    child: Text("Press to get Information"))
+              ],
+            ),
           ),
         ),
       ],

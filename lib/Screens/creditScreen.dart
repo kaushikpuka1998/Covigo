@@ -32,7 +32,14 @@ class _CreditScreenState extends State<CreditScreen> {
             child: ListTile(
               title: Text(
                 "Developed By Kaushik Ghosh",
+                textAlign: TextAlign.center,
                 style: GoogleFonts.mcLaren(fontSize: 16, color: Colors.white),
+              ),
+              subtitle: Text(
+                "Student Of Coochbehar Government Engineering College",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.mcLaren(
+                    fontSize: 10, color: Colors.orangeAccent),
               ),
               leading: Image.network(
                 'https://fooddataapi.s3.ap-south-1.amazonaws.com/kaushik.jpg',
@@ -48,7 +55,14 @@ class _CreditScreenState extends State<CreditScreen> {
             child: ListTile(
               title: Text(
                 "Data Resourced By Novonil Deb",
+                textAlign: TextAlign.center,
                 style: GoogleFonts.mcLaren(fontSize: 16, color: Colors.white),
+              ),
+              subtitle: Text(
+                "Student Of North Bengal Medical College and Hospital",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.mcLaren(
+                    fontSize: 10, color: Colors.orangeAccent),
               ),
               leading: Image.network(
                 'https://fooddataapi.s3.ap-south-1.amazonaws.com/Novonil.jpeg',
