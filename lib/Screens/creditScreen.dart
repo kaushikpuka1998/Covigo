@@ -69,11 +69,6 @@ class _CreditScreenState extends State<CreditScreen> {
               ),
             ),
           ),
-          Text(
-            "Version 1.0.0 Covigo",
-            textAlign: TextAlign.center,
-            style: GoogleFonts.mcLaren(color: Colors.black, fontSize: 16),
-          )
         ],
       ),
     );

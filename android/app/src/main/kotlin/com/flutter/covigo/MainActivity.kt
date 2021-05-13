@@ -1,4 +1,4 @@
-package com.example.covigo
+package com.flutter.covigo
 
 import io.flutter.embedding.android.FlutterActivity
 
