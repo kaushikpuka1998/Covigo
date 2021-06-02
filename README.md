@@ -12,7 +12,7 @@
 
 # covigo
 
-Covid Details
+Some Screenshot given If you like it please add a star on the project
 
 ## Getting Started
 To make that I used following dependency
