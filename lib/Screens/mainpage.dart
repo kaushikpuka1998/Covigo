@@ -537,7 +537,7 @@ class _MainPageState extends State<MainPage> {
                                         topRight: Radius.circular(20)),
                                   ),
                                   child: Text(
-                                    "Age\n45-60\n1st Dose:\n${(ln == null) ? "" : dose["tested"][ln - 1]["over45years1stdose"] == "" ? dose["tested"][ln - 2]["over45years1stdose"] : dose["tested"][ln - 1]["over45years1stdose"]}",
+                                    "Age\n45-60\n1st Dose:\n${(ln == null) ? "" : dose["tested"][ln - 1]["over45years1stdose"] == "" ? (dose["tested"][ln - 2]["over45years1stdose"] == "" ? dose["tested"][ln - 3]["over45years1stdose"] : dose["tested"][ln - 2]["over45years1stdose"]) : dose["tested"][ln - 1]["over45years1stdose"]}",
                                     style: GoogleFonts.mcLaren(
                                         fontSize: 10, color: Colors.red),
                                     textAlign: TextAlign.center,
@@ -561,7 +561,7 @@ class _MainPageState extends State<MainPage> {
                                         topRight: Radius.circular(20)),
                                   ),
                                   child: Text(
-                                    "Age\n45 - 60\n2nd Dose:\n${(ln != null) ? dose["tested"][ln - 1]["over45years2nddose"] == "" ? dose["tested"][ln - 2]["over45years2nddose"] : dose["tested"][ln - 1]["over45years2nddose"] : ""}",
+                                    "Age\n45 - 60\n2nd Dose:\n${(ln != null) ? dose["tested"][ln - 1]["over45years2nddose"] == "" ? (dose["tested"][ln - 2]["over45years2nddose"] == "" ? dose["tested"][ln - 3]["over45years2nddose"] : dose["tested"][ln - 2]["over45years2nddose"]) : dose["tested"][ln - 1]["over45years2nddose"] : ""}",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.mcLaren(
                                         fontSize: 10, color: Colors.blue),
@@ -585,7 +585,7 @@ class _MainPageState extends State<MainPage> {
                                         topRight: Radius.circular(20)),
                                   ),
                                   child: Text(
-                                    "Age\nAfter 60\n1st Dose:\n${(ln != null) ? dose["tested"][ln - 1]["over60years1stdose"] == "" ? dose["tested"][ln - 2]["over60years1stdose"] : dose["tested"][ln - 1]["over60years1stdose"] : ""}",
+                                    "Age\nAfter 60\n1st Dose:\n${(ln != null) ? dose["tested"][ln - 1]["over60years1stdose"] == "" ? (dose["tested"][ln - 2]["over60years1stdose"] == "" ? dose["tested"][ln - 3]["over60years1stdose"] : dose["tested"][ln - 2]["over60years1stdose"]) : dose["tested"][ln - 1]["over60years1stdose"] : ""}",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.mcLaren(
                                         fontSize: 10, color: Colors.purple),
@@ -610,7 +610,7 @@ class _MainPageState extends State<MainPage> {
                                         topRight: Radius.circular(20)),
                                   ),
                                   child: Text(
-                                    "Age\nAfter 60\n2nd Dose:\n${(ln != null) ? dose["tested"][ln - 1]["over60years2nddose"] == "" ? dose["tested"][ln - 2]["over60years2nddose"] : dose["tested"][ln - 1]["over60years2nddose"] : ""}",
+                                    "Age\nAfter 60\n2nd Dose:\n${(ln != null) ? dose["tested"][ln - 1]["over60years2nddose"] == "" ? (dose["tested"][ln - 2]["over60years2nddose"] == "" ? dose["tested"][ln - 3]["over60years2nddose"] : dose["tested"][ln - 2]["over60years2nddose"]) : dose["tested"][ln - 1]["over60years2nddose"] : ""}",
                                     style: GoogleFonts.mcLaren(
                                         fontSize: 10, color: Colors.green),
                                     textAlign: TextAlign.center,
@@ -634,8 +634,13 @@ class _MainPageState extends State<MainPage> {
                                     : dose["tested"][ln - 1][
                                                 "frontlineworkersvaccinated1stdose"] ==
                                             ""
-                                        ? dose["tested"][ln - 2][
-                                            "frontlineworkersvaccinated1stdose"]
+                                        ? (dose["tested"][ln - 2][
+                                                    "frontlineworkersvaccinated1stdose"] ==
+                                                ""
+                                            ? dose["tested"][ln - 3][
+                                                "frontlineworkersvaccinated1stdose"]
+                                            : dose["tested"][ln - 2][
+                                                "frontlineworkersvaccinated1stdose"])
                                         : dose["tested"][ln - 1][
                                             "frontlineworkersvaccinated1stdose"]),
                                 "Front Line Worker 2nd Dose": double.parse((ln ==
@@ -644,8 +649,13 @@ class _MainPageState extends State<MainPage> {
                                     : dose["tested"][ln - 1][
                                                 "frontlineworkersvaccinated2nddose"] ==
                                             ""
-                                        ? dose["tested"][ln - 2][
-                                            "frontlineworkersvaccinated2nddose"]
+                                        ? (dose["tested"][ln - 2][
+                                                    "frontlineworkersvaccinated2nddose"] ==
+                                                ""
+                                            ? dose["tested"][ln - 3][
+                                                "frontlineworkersvaccinated2nddose"]
+                                            : dose["tested"][ln - 2][
+                                                "frontlineworkersvaccinated2nddose"])
                                         : dose["tested"][ln - 1][
                                             "frontlineworkersvaccinated2nddose"]),
                                 "Health Worker 1st Dose": double.parse((ln ==
@@ -654,8 +664,13 @@ class _MainPageState extends State<MainPage> {
                                     : dose["tested"][ln - 1][
                                                 "healthcareworkersvaccinated1stdose"] ==
                                             ""
-                                        ? dose["tested"][ln - 2][
-                                            "healthcareworkersvaccinated1stdose"]
+                                        ? (dose["tested"][ln - 2][
+                                                    "healthcareworkersvaccinated1stdose"] ==
+                                                ""
+                                            ? dose["tested"][ln - 3][
+                                                "healthcareworkersvaccinated1stdose"]
+                                            : dose["tested"][ln - 2][
+                                                "healthcareworkersvaccinated1stdose"])
                                         : dose["tested"][ln - 1][
                                             "healthcareworkersvaccinated1stdose"]),
                                 "Health Worker 2nd Dose": double.parse((ln ==
@@ -664,8 +679,13 @@ class _MainPageState extends State<MainPage> {
                                     : dose["tested"][ln - 1][
                                                 "healthcareworkersvaccinated2nddose"] ==
                                             ""
-                                        ? dose["tested"][ln - 2][
-                                            "healthcareworkersvaccinated2nddose"]
+                                        ? (dose["tested"][ln - 2][
+                                                    "healthcareworkersvaccinated2nddose"] ==
+                                                ""
+                                            ? dose["tested"][ln - 3][
+                                                "healthcareworkersvaccinated2nddose"]
+                                            : dose["tested"][ln - 2][
+                                                "healthcareworkersvaccinated2nddose"])
                                         : dose["tested"][ln - 1][
                                             "healthcareworkersvaccinated2nddose"]),
                                 "Age 45-60 1st Dose": double.parse((ln == null)
@@ -673,8 +693,13 @@ class _MainPageState extends State<MainPage> {
                                     : dose["tested"][ln - 1]
                                                 ["over45years1stdose"] ==
                                             ""
-                                        ? dose["tested"][ln - 2]
-                                            ["over45years1stdose"]
+                                        ? (dose["tested"][ln - 2]
+                                                    ["over45years1stdose"] ==
+                                                ""
+                                            ? dose["tested"][ln - 3]
+                                                ["over45years1stdose"]
+                                            : dose["tested"][ln - 2]
+                                                ["over45years1stdose"])
                                         : dose["tested"][ln - 1]
                                             ["over45years1stdose"]),
                                 "Age 45-60 2nd Dose": double.parse((ln == null)
@@ -682,30 +707,45 @@ class _MainPageState extends State<MainPage> {
                                     : dose["tested"][ln - 1]
                                                 ["over45years2nddose"] ==
                                             ""
-                                        ? dose["tested"][ln - 2]
-                                            ["over45years2nddose"]
+                                        ? (dose["tested"][ln - 2]
+                                                    ["over45years2nddose"] ==
+                                                ""
+                                            ? dose["tested"][ln - 3]
+                                                ["over45years2nddose"]
+                                            : dose["tested"][ln - 2]
+                                                ["over45years2nddose"])
                                         : dose["tested"][ln - 1]
                                             ["over45years2nddose"]),
-                                "Age 60 Above 1st Dose": double.parse(
-                                    (ln == null)
-                                        ? "0"
-                                        : dose["tested"][ln - 1]
+                                "Age 60 Above 1st Dose": double.parse((ln ==
+                                        null)
+                                    ? "0"
+                                    : dose["tested"][ln - 1]
+                                                ["over60years1stdose"] ==
+                                            ""
+                                        ? (dose["tested"][ln - 2]
                                                     ["over60years1stdose"] ==
                                                 ""
-                                            ? dose["tested"][ln - 2]
+                                            ? dose["tested"][ln - 3]
                                                 ["over60years1stdose"]
-                                            : dose["tested"][ln - 1]
-                                                ["over60years1stdose"]),
-                                "Age 60 Above 2nd Dose": double.parse(
-                                    (ln == null)
-                                        ? "0"
+                                            : dose["tested"][ln - 2]
+                                                ["over60years1stdose"])
                                         : dose["tested"][ln - 1]
+                                            ["over60years1stdose"]),
+                                "Age 60 Above 2nd Dose": double.parse((ln ==
+                                        null)
+                                    ? "0"
+                                    : dose["tested"][ln - 1]
+                                                ["over60years2nddose"] ==
+                                            ""
+                                        ? (dose["tested"][ln - 2]
                                                     ["over60years2nddose"] ==
                                                 ""
-                                            ? dose["tested"][ln - 2]
+                                            ? dose["tested"][ln - 3]
                                                 ["over60years2nddose"]
-                                            : dose["tested"][ln - 1]
+                                            : dose["tested"][ln - 2]
                                                 ["over60years2nddose"])
+                                        : dose["tested"][ln - 1]
+                                            ["over60years2nddose"])
                               },
                               chartValuesOptions: ChartValuesOptions(
                                   chartValueStyle: TextStyle(
@@ -715,7 +755,7 @@ class _MainPageState extends State<MainPage> {
                             ),
                           ),
                           Text(
-                              "Updated On ${(ln != null) && dose["tested"][ln - 1]["over60years2nddose"] != "" ? dose["tested"][ln - 1]["updatetimestamp"] == "" ? dose["tested"][ln - 2]["updatetimestamp"] : dose["tested"][ln - 1]["updatetimestamp"] : ""}")
+                              "Updated On ${(ln != null) ? dose["tested"][ln - 1]["updatetimestamp"] == "" ? dose["tested"][ln - 2]["updatetimestamp"] : dose["tested"][ln - 1]["updatetimestamp"] : ""}")
                         ],
                       ),
                     )
