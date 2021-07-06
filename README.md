@@ -10,6 +10,9 @@
 <img src=https://user-images.githubusercontent.com/52675676/120425334-9a358000-c38b-11eb-8870-744f7385467d.jpeg width="200" height="400"/>
 <img src=https://user-images.githubusercontent.com/52675676/120425336-9ace1680-c38b-11eb-8e53-c3a7b42ff15f.jpeg width="200" height="400"/>
 
+  
+  
+  [Demo Video](https://www.linkedin.com/feed/update/urn:li:activity:6807305429664849920/)
 # covigo
 
 Some Screenshot given If you like it please add a star on the project
